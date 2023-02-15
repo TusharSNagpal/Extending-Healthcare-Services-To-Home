@@ -16,7 +16,7 @@ import java.util.Date;
 @Table(name = "doctors")
 public class Doctor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int doctorId;
 
     private String fname;
@@ -25,4 +25,5 @@ public class Doctor {
     private Date DOB;
     private String phoneNo;
     private String address;
+    private Date registrationDate;
 }

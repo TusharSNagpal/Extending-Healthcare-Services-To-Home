@@ -20,4 +20,5 @@ public class DoctorDto {
     private Date DOB;
     private String phoneNo;
     private String address;
+    private Date registrationDate;
 }
