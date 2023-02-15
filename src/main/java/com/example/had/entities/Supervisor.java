@@ -18,7 +18,7 @@ import java.util.Date;
 public class Supervisor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int supervisorId;
 
     private String fname;
@@ -27,6 +27,7 @@ public class Supervisor {
     private Date DOB;
     private String phoneNo;
     private String address;
+    private Date registrationDate;
     @OneToOne
     @JoinColumn(name = "hospitalId")
     private Hospital hospitalId;

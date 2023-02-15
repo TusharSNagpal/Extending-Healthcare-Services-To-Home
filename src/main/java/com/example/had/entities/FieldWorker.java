@@ -16,7 +16,7 @@ import java.util.Date;
 @Table(name = "fieldworkers")
 public class FieldWorker {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int fwId;
 
     private String fname;
@@ -25,4 +25,5 @@ public class FieldWorker {
     private Date DOB;
     private String phoneNo;
     private String address;
+    private Date registrationDate;
 }

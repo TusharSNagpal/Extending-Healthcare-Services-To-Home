@@ -21,4 +21,5 @@ public class SupervisorDto {
     private String phoneNo;
     private String address;
     private Hospital hospitalId;
+    private Date registrationDate;
 }

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -15,7 +17,7 @@ import lombok.Setter;
 public class Hospital {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int hospitalId;
 
     @Column(nullable = false)
@@ -23,4 +25,6 @@ public class Hospital {
 
     @Column(nullable = false)
     private String address;
+
+    private Date registrationDate;
 }
