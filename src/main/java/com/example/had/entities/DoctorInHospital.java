@@ -30,5 +30,5 @@ public class DoctorInHospital {
     private Doctor doctor;
 
     @Column
-    private Date registrationDate;
+    private String registrationDate;
 }

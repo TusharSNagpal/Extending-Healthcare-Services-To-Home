@@ -5,26 +5,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name="cases")
-@Table(name="cases")
+@Entity(name="visits")
+@Table(name="visits")
 public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int visitId;
 
     @Column
-    private boolean activeFlag;
+    private int isActive;
 
     @Column
     private String prescription;
 
     @Column
-    private Date visitDate;
+    private String visitDate;
 
     @Column
     private String symptoms;
