@@ -34,7 +34,7 @@ public class Patient {
     private String phoneNo;
 
     @Column
-    private Date dob;
+    private String dob;
 
     @ManyToOne
     @JoinColumn(name="hospitalId")

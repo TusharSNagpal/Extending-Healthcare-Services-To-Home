@@ -13,7 +13,7 @@ public class FollowUps {
     private int followUpsId;
 
     @Column
-    private Date followUpDate;
+    private String followUpDate;
 
 //    @Column
 //    String taskByDoctor;
@@ -25,7 +25,7 @@ public class FollowUps {
     private boolean urgentFlag;
 
     @Column
-    private boolean activeFlag;
+    private int isActive;
 
     @Column
     private String imagePath;

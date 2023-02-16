@@ -6,18 +6,24 @@ import com.example.had.entities.Patient;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class VisitDto {
-    
+
     private int visitId;
 
-    private boolean activeFlag;
+    private int isActive;
 
     private String prescription;
 
-    private Date visitDate;
+    private String visitDate;
 
     private String symptoms;
 
