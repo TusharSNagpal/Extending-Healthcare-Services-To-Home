@@ -25,7 +25,7 @@ public class PatientDto {
 
     private String phoneNo;
 
-    private Date dob;
+    private String dob;
 
     private Hospital hospital;
 
