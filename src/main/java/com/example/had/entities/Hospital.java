@@ -26,5 +26,5 @@ public class Hospital {
     @Column(nullable = false)
     private String address;
 
-    private Date registrationDate;
+    private String registrationDate;
 }
