@@ -1,27 +1,33 @@
 package com.example.had.payloads;
 
 import com.example.had.entities.Hospital;
-import lombok.AllArgsConstructor;
+import com.example.had.entities.Supervisor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
 
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class SupervisorDto {
-    private int supervisorId;
+
+public class PatientDto {
+    private int patientId;
+
     private String fname;
+
     private String lname;
-    private String gender;
-    private String DOB;
-    private String phoneNo;
+
     private String address;
 
+    private String gender;
+
+    private String phoneNo;
+
+    private String dob;
+
     private Hospital hospital;
-    
-    private String registrationDate;
+
+    private Supervisor supervisor;
 }

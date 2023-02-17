@@ -25,7 +25,7 @@ public class FollowUps {
     private boolean urgentFlag;
 
     @Column
-    private boolean activeFlag;
+    private int isActive;
 
     @Column
     private String imagePath;
