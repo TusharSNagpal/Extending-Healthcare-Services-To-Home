@@ -15,5 +15,5 @@ public class HospitalDto {
     private int hospitalId;
     private String name;
     private String address;
-    private Date registrationDate;
+    private String registrationDate;
 }

@@ -24,7 +24,7 @@ public class Visit {
     private String prescription;
 
     @Column
-    private Date visitDate;
+    private String visitDate;
 
     @Column
     private String symptoms;

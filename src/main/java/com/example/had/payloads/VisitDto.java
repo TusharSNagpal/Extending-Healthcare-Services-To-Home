@@ -17,7 +17,7 @@ public class VisitDto {
 
     private String prescription;
 
-    private Date visitDate;
+    private String visitDate;
 
     private String symptoms;
 

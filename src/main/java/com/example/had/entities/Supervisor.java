@@ -24,11 +24,13 @@ public class Supervisor {
     private String fname;
     private String lname;
     private String gender;
-    private Date DOB;
+    private String DOB;
     private String phoneNo;
     private String address;
-    private Date registrationDate;
-    @OneToOne
-    @JoinColumn(name = "hospitalId")
-    private Hospital hospitalId;
+    private String registrationDate;
+
+//    @Column(unique = true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "hospitalId", unique = true)
+    private Hospital hospital;
 }

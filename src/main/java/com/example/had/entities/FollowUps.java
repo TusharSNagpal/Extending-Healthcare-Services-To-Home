@@ -13,7 +13,7 @@ public class FollowUps {
     private int followUpsId;
 
     @Column
-    private Date followUpDate;
+    private String followUpDate;
 
 //    @Column
 //    String taskByDoctor;

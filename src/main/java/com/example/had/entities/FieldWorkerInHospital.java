@@ -31,5 +31,5 @@ public class FieldWorkerInHospital {
     private FieldWorker fieldWorker;
 
     @Column
-    private Date registrationDate;
+    private String registrationDate;
 }

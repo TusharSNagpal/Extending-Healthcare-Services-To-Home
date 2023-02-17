@@ -5,7 +5,9 @@ import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.HospitalDto;
 import com.example.had.repositories.HospitalRepo;
 import com.example.had.services.HospitalService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +19,14 @@ public class HospitalServiceImpl implements HospitalService {
     @Autowired
     private HospitalRepo hospitalRepo;
 
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public HospitalDto createHospital(HospitalDto hospitalDto) {
-        Hospital hospital = this.dtoToHospital(hospitalDto);
+        Hospital hospital = this.modelMapper.map(hospitalDto, Hospital.class);
         Hospital savedHospital = this.hospitalRepo.save(hospital);
-        return this.hospitalToDto(savedHospital);
+        return this.modelMapper.map(savedHospital, HospitalDto.class);
     }
 
     @Override
@@ -32,8 +36,9 @@ public class HospitalServiceImpl implements HospitalService {
         });
         hospital.setName(hospitalDto.getName());
         hospital.setAddress(hospitalDto.getAddress());
+        hospital.setRegistrationDate(hospitalDto.getRegistrationDate());
         Hospital updatedHospital = this.hospitalRepo.save(hospital);
-        return this.hospitalToDto(updatedHospital);
+        return this.modelMapper.map(updatedHospital, HospitalDto.class);
     }
 
     @Override
@@ -41,13 +46,13 @@ public class HospitalServiceImpl implements HospitalService {
         Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> {
             return new ResourceNotFoundException("hospital", "hospitalId", hospitalId);
         });
-        return this.hospitalToDto(hospital);
+        return this.modelMapper.map(hospital, HospitalDto.class);
     }
 
     @Override
     public List<HospitalDto> getAllHospitals() {
         List<Hospital> hospitals = this.hospitalRepo.findAll();
-        List<HospitalDto> hospitalDtos = hospitals.stream().map(hospital -> this.hospitalToDto(hospital)).collect(Collectors.toList());
+        List<HospitalDto> hospitalDtos = hospitals.stream().map(hospital -> this.modelMapper.map(hospital, HospitalDto.class)).collect(Collectors.toList());
         return hospitalDtos;
     }
 
@@ -58,21 +63,5 @@ public class HospitalServiceImpl implements HospitalService {
         });
         this.hospitalRepo.delete(hospital);
 
-    }
-
-    public Hospital dtoToHospital(HospitalDto hospitalDto) {
-        Hospital hospital = new Hospital();
-        hospital.setHospitalId(hospitalDto.getHospitalId());
-        hospital.setName(hospitalDto.getName());
-        hospital.setAddress(hospitalDto.getAddress());
-        return hospital;
-    }
-
-    public HospitalDto hospitalToDto(Hospital hospital) {
-        HospitalDto hospitalDto = new HospitalDto();
-        hospitalDto.setHospitalId(hospital.getHospitalId());
-        hospitalDto.setName(hospital.getName());
-        hospitalDto.setAddress(hospital.getAddress());
-        return hospitalDto;
     }
 }
