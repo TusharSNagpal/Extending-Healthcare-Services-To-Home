@@ -20,6 +20,8 @@ public class SupervisorDto {
     private String DOB;
     private String phoneNo;
     private String address;
-    private Hospital hospitalId;
+
+    private Hospital hospital;
+    
     private String registrationDate;
 }

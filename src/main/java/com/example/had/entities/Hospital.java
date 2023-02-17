@@ -27,4 +27,7 @@ public class Hospital {
     private String address;
 
     private String registrationDate;
+
+    @OneToOne(mappedBy = "hospital")
+    private Supervisor supervisor;
 }

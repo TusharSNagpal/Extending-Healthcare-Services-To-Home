@@ -5,8 +5,10 @@ import com.example.had.entities.Supervisor;
 import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.HospitalDto;
 import com.example.had.payloads.SupervisorDto;
+import com.example.had.repositories.HospitalRepo;
 import com.example.had.repositories.SupervisorRepo;
 import com.example.had.services.SupervisorService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,23 @@ import java.util.stream.Collectors;
 @Service
 public class SupervisorServiceImpl implements SupervisorService {
     @Autowired
-    SupervisorRepo supervisorRepo;
+    private SupervisorRepo supervisorRepo;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private HospitalRepo hospitalRepo;
+
 
     @Override
     public SupervisorDto createSupervisor(SupervisorDto supervisorDto) {
-        Supervisor supervisor = this.dtoToSupervisor(supervisorDto);
+        Supervisor supervisor = this.modelMapper.map(supervisorDto, Supervisor.class);
+        int hospitalId = supervisor.getHospital().getHospitalId();
+        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "Hospital Id", hospitalId));
+        supervisor.setHospital(hospital);
         Supervisor savedSupervisor = this.supervisorRepo.save(supervisor);
-        return this.supervisorToDto(savedSupervisor);
+        return this.modelMapper.map(savedSupervisor, SupervisorDto.class);
     }
 
     @Override
@@ -36,9 +48,10 @@ public class SupervisorServiceImpl implements SupervisorService {
         supervisor.setDOB(supervisorDto.getDOB());
         supervisor.setPhoneNo(supervisorDto.getPhoneNo());
         supervisor.setAddress(supervisorDto.getAddress());
-        supervisor.setHospitalId(supervisorDto.getHospitalId());
+        supervisor.setHospital(supervisorDto.getHospital());
+        supervisor.setRegistrationDate(supervisorDto.getRegistrationDate());
         Supervisor updatedSupervisor = this.supervisorRepo.save(supervisor);
-        return this.supervisorToDto(updatedSupervisor);
+        return this.modelMapper.map(updatedSupervisor, SupervisorDto.class);
     }
 
     @Override
@@ -46,13 +59,13 @@ public class SupervisorServiceImpl implements SupervisorService {
         Supervisor supervisor = this.supervisorRepo.findById(supervisorId).orElseThrow(() -> {
             return new ResourceNotFoundException("supervisor", "supervisorId", supervisorId);
         });
-        return this.supervisorToDto(supervisor);
+        return this.modelMapper.map(supervisor, SupervisorDto.class);
     }
 
     @Override
     public List<SupervisorDto> getAllSupervisors() {
         List<Supervisor> supervisors = this.supervisorRepo.findAll();
-        List<SupervisorDto> supervisorDtos = supervisors.stream().map(supervisor -> this.supervisorToDto(supervisor)).collect(Collectors.toList());
+        List<SupervisorDto> supervisorDtos = supervisors.stream().map(supervisor -> this.modelMapper.map(supervisor, SupervisorDto.class)).collect(Collectors.toList());
         return supervisorDtos;
     }
 
@@ -62,32 +75,5 @@ public class SupervisorServiceImpl implements SupervisorService {
             return new ResourceNotFoundException("supervisor", "supervisorId", supervisorId);
         });
         this.supervisorRepo.delete(supervisor);
-    }
-
-
-    public Supervisor dtoToSupervisor(SupervisorDto supervisorDto) {
-        Supervisor supervisor = new Supervisor();
-        supervisor.setSupervisorId(supervisorDto.getSupervisorId());
-        supervisor.setFname(supervisorDto.getFname());
-        supervisor.setLname(supervisorDto.getLname());
-        supervisor.setGender(supervisorDto.getGender());
-        supervisor.setDOB(supervisorDto.getDOB());
-        supervisor.setPhoneNo(supervisorDto.getPhoneNo());
-        supervisor.setAddress(supervisorDto.getAddress());
-        supervisor.setHospitalId(supervisorDto.getHospitalId());
-        return supervisor;
-    }
-
-    public SupervisorDto supervisorToDto(Supervisor supervisor) {
-        SupervisorDto supervisorDto = new SupervisorDto();
-        supervisorDto.setSupervisorId(supervisor.getSupervisorId());
-        supervisorDto.setFname(supervisor.getFname());
-        supervisorDto.setLname(supervisor.getLname());
-        supervisorDto.setGender(supervisor.getGender());
-        supervisorDto.setDOB(supervisor.getDOB());
-        supervisorDto.setPhoneNo(supervisor.getPhoneNo());
-        supervisorDto.setAddress(supervisor.getAddress());
-        supervisorDto.setHospitalId(supervisor.getHospitalId());
-        return supervisorDto;
     }
 }

@@ -6,6 +6,7 @@ import com.example.had.payloads.DoctorDto;
 import com.example.had.payloads.DoctorDto;
 import com.example.had.repositories.DoctorRepo;
 import com.example.had.services.DoctorService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +16,16 @@ import java.util.stream.Collectors;
 @Service
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
-    DoctorRepo doctorRepo;
+    private DoctorRepo doctorRepo;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public DoctorDto createDoctor(DoctorDto doctorDto) {
-        Doctor doctor = this.dtoToDoctor(doctorDto);
+        Doctor doctor = this.modelMapper.map(doctorDto, Doctor.class);
         Doctor savedDoctor = this.doctorRepo.save(doctor);
-        return this.doctorToDto(savedDoctor);
+        return this.modelMapper.map(savedDoctor, DoctorDto.class);
     }
 
     @Override
@@ -32,10 +37,11 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setLname(doctorDto.getLname());
         doctor.setGender(doctorDto.getGender());
         doctor.setDOB(doctorDto.getDOB());
-        doctor.setPhoneNo(doctorDto.getPhoneNo());
         doctor.setAddress(doctorDto.getAddress());
+        doctor.setPhoneNo(doctorDto.getPhoneNo());
+        doctor.setRegistrationDate(doctorDto.getRegistrationDate());
         Doctor updatedDoctor = this.doctorRepo.save(doctor);
-        return this.doctorToDto(updatedDoctor);
+        return this.modelMapper.map(updatedDoctor, DoctorDto.class);
     }
 
     @Override
@@ -43,13 +49,13 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor = this.doctorRepo.findById(doctorId).orElseThrow(() -> {
             return new ResourceNotFoundException("doctor", "doctorId", doctorId);
         });
-        return this.doctorToDto(doctor);
+        return this.modelMapper.map(doctor, DoctorDto.class);
     }
 
     @Override
     public List<DoctorDto> getAllDoctors() {
         List<Doctor> doctors = this.doctorRepo.findAll();
-        List<DoctorDto> doctorDtos = doctors.stream().map(doctor -> this.doctorToDto(doctor)).collect(Collectors.toList());
+        List<DoctorDto> doctorDtos = doctors.stream().map(doctor -> this.modelMapper.map(doctor, DoctorDto.class)).collect(Collectors.toList());
         return doctorDtos;
     }
 
@@ -61,27 +67,5 @@ public class DoctorServiceImpl implements DoctorService {
         this.doctorRepo.delete(doctor);
     }
 
-    public Doctor dtoToDoctor(DoctorDto doctorDto) {
-        Doctor doctor = new Doctor();
-        doctor.setDoctorId(doctorDto.getDoctorId());
-        doctor.setFname(doctorDto.getFname());
-        doctor.setLname(doctorDto.getLname());
-        doctor.setGender(doctorDto.getGender());
-        doctor.setDOB(doctorDto.getDOB());
-        doctor.setPhoneNo(doctorDto.getPhoneNo());
-        doctor.setAddress(doctorDto.getAddress());
-        return doctor;
-    }
 
-    public DoctorDto doctorToDto(Doctor doctor) {
-        DoctorDto doctorDto = new DoctorDto();
-        doctorDto.setDoctorId(doctor.getDoctorId());
-        doctorDto.setFname(doctor.getFname());
-        doctorDto.setLname(doctor.getLname());
-        doctorDto.setGender(doctor.getGender());
-        doctorDto.setDOB(doctor.getDOB());
-        doctorDto.setPhoneNo(doctor.getPhoneNo());
-        doctorDto.setAddress(doctor.getAddress());
-        return doctorDto;
-    }
 }
