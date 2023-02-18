@@ -51,4 +51,10 @@ public class PatientServiceImpl implements PatientService {
         Patient savedPatient = this.patientRepo.save(patient);
         return this.modelMapper.map(savedPatient, PatientDto.class);
     }
+    @Override
+    public int searchPatient(int patientId){
+        Patient patientFound = this.patientRepo.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient", "Patient ID", patientId));
+
+        return patientId;
+    }
 }
