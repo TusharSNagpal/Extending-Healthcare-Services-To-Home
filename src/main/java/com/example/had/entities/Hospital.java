@@ -28,6 +28,6 @@ public class Hospital {
 
     private String registrationDate;
 
-    @OneToOne(mappedBy = "hospital")
-    private Supervisor supervisor;
+//    @OneToOne(mappedBy = "hospital")
+//    private Supervisor supervisor;
 }

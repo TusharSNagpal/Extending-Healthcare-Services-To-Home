@@ -29,7 +29,7 @@ public class Supervisor {
     private String address;
     private String registrationDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "hospitalId", unique = true)
     private Hospital hospital;
 }
