@@ -5,6 +5,7 @@ import com.example.had.entities.Hospital;
 import com.example.had.entities.Patient;
 import com.example.had.entities.Visit;
 import com.example.had.exceptions.ResourceNotFoundException;
+import com.example.had.payloads.HospitalDto;
 import com.example.had.payloads.VisitDto;
 import com.example.had.repositories.DoctorRepo;
 import com.example.had.repositories.HospitalRepo;
@@ -61,5 +62,15 @@ public class VisitServiceImpl implements VisitService {
         List<Visit> activeVisits = this.visitRepo.findAllByIsActiveAndVisitDateAndHospital(1,currentDate,hospital);
         List<VisitDto> activeVisitsDtos = activeVisits.stream().map((activeVisit -> this.modelMapper.map(activeVisit, VisitDto.class))).collect(Collectors.toList());
         return activeVisitsDtos;
+    }
+
+   public void deactivateVisits(Integer visitId)
+    {
+
+        Visit visit=this.visitRepo.findById(visitId).orElseThrow(() -> new ResourceNotFoundException("Visit","Id",visitId));
+        visit.setIsActive(0);
+
+        this.visitRepo.save(visit);
+
     }
 }

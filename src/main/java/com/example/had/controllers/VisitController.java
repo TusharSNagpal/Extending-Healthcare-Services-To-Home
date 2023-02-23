@@ -1,6 +1,7 @@
 package com.example.had.controllers;
 
 import com.example.had.payloads.ApiResponse;
+import com.example.had.payloads.HospitalDto;
 import com.example.had.payloads.VisitDto;
 import com.example.had.services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,11 @@ public class VisitController {
     @GetMapping("/activeVisits/hospital/{hospitalId}")
     public ResponseEntity<List<VisitDto>> getActiveVisits(@PathVariable int hospitalId){
         return ResponseEntity.ok(this.visitService.activeVisits(hospitalId));
+    }
+
+    @PutMapping("/{visitId}")
+    public ResponseEntity<ApiResponse> deactivateVisits(@PathVariable Integer visitId) {
+       this.visitService.deactivateVisits(visitId);
+        return new ResponseEntity<ApiResponse>(new ApiResponse("Visit deactivated successfully", true), HttpStatus.OK);
     }
 }
