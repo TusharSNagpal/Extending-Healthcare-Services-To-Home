@@ -43,4 +43,9 @@ public class SupervisorController {
     public ResponseEntity<List<SupervisorDto>> getAllSupervisors() {
         return ResponseEntity.ok(this.supervisorService.getAllSupervisors());
     }
+
+    @GetMapping("/phoneNo/{supervisorId}")
+    public ResponseEntity<String> getPhoneNo(@PathVariable Integer supervisorId) {
+        return ResponseEntity.ok(this.supervisorService.getPhoneNo(supervisorId));
+    }
 }

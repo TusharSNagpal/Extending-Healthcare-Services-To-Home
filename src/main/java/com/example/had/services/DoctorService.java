@@ -11,4 +11,6 @@ public interface DoctorService {
     DoctorDto getDoctorById(Integer doctorId);
     List<DoctorDto> getAllDoctors();
     void deleteDoctor(Integer doctorId);
+   String getPhoneNo(Integer dId);
+
 }

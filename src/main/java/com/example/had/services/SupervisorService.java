@@ -11,4 +11,5 @@ public interface SupervisorService {
     SupervisorDto getSupervisorById(Integer supervisorId);
     List<SupervisorDto> getAllSupervisors();
     void deleteSupervisor(Integer supervisorId);
+    String getPhoneNo(Integer sId);
 }

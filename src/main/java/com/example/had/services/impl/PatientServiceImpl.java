@@ -1,6 +1,8 @@
 package com.example.had.services.impl;
 
+import com.example.had.entities.Doctor;
 import com.example.had.entities.Patient;
+import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.PatientDto;
 import com.example.had.repositories.PatientRepo;
 import com.example.had.services.PatientService;
@@ -22,4 +24,13 @@ public class PatientServiceImpl implements PatientService {
         Patient savedPatient = this.patientRepo.save(patient);
         return this.modelMapper.map(savedPatient, PatientDto.class);
     }
+    @Override
+    public String getPhoneNo(Integer pId)
+    {
+       Patient patient= this.patientRepo.findById(pId).orElseThrow(() -> {
+            return new ResourceNotFoundException("patient", "patientId", pId); });
+        String phoneNo=patient.getPhoneNo();
+        return phoneNo;
+    }
+
 }

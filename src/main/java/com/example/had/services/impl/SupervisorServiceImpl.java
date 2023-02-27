@@ -1,6 +1,7 @@
 package com.example.had.services.impl;
 
 import com.example.had.entities.Hospital;
+import com.example.had.entities.Patient;
 import com.example.had.entities.Supervisor;
 import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.HospitalDto;
@@ -75,5 +76,14 @@ public class SupervisorServiceImpl implements SupervisorService {
             return new ResourceNotFoundException("supervisor", "supervisorId", supervisorId);
         });
         this.supervisorRepo.delete(supervisor);
+    }
+
+    @Override
+    public String getPhoneNo(Integer sId)
+    {
+        Supervisor supervisor= this.supervisorRepo.findById(sId).orElseThrow(() -> {
+            return new ResourceNotFoundException("patient", "patientId", sId); });
+        String phoneNo=supervisor.getPhoneNo();
+        return phoneNo;
     }
 }

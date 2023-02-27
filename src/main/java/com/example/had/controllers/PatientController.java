@@ -6,10 +6,7 @@ import com.example.had.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/patients")
@@ -22,5 +19,10 @@ public class PatientController {
     public ResponseEntity<ApiResponse> createPatient(@RequestBody PatientDto patientDto){
         this.patientService.createPatient(patientDto);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Patient created successfully", true), HttpStatus.OK);
+    }
+
+    @GetMapping("/phoneNo/{patientId}")
+    public ResponseEntity<String> getPhoneNo(@PathVariable Integer patientId) {
+        return ResponseEntity.ok(this.patientService.getPhoneNo(patientId));
     }
 }

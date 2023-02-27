@@ -41,4 +41,5 @@ public class HospitalController {
     public ResponseEntity<List<HospitalDto>> getAllHospitals() {
         return ResponseEntity.ok(this.hospitalService.getAllHospitals());
     }
+
 }

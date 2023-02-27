@@ -1,6 +1,7 @@
 package com.example.had.controllers;
 
 import com.example.had.payloads.DoctorDto;
+import com.example.had.payloads.HospitalDto;
 import com.example.had.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,5 +41,9 @@ public class DoctorController {
     @GetMapping("/")
     public ResponseEntity<List<DoctorDto>> getAllDoctors() {
         return ResponseEntity.ok(this.doctorService.getAllDoctors());
+    }
+    @GetMapping("/phoneNo/{doctorId}")
+    public ResponseEntity<String> getPhoneNo(@PathVariable Integer doctorId) {
+        return ResponseEntity.ok(this.doctorService.getPhoneNo(doctorId));
     }
 }
