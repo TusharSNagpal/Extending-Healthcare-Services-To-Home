@@ -66,6 +66,14 @@ public class DoctorServiceImpl implements DoctorService {
         });
         this.doctorRepo.delete(doctor);
     }
+    @Override
+    public String getPhoneNo(Integer dId)
+    {
+        Doctor doctor = this.doctorRepo.findById(dId).orElseThrow(() -> {
+            return new ResourceNotFoundException("doctor", "doctorId", dId); });
+        String phoneNo=doctor.getPhoneNo();
+        return phoneNo;
+    }
 
 
 }

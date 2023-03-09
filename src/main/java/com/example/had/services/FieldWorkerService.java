@@ -10,4 +10,5 @@ public interface FieldWorkerService {
     FieldWorkerDto getFieldWorkerById(Integer fwId);
     List<FieldWorkerDto> getAllFieldWorkers();
     void deleteFieldWorker(Integer fwId);
+    String getPhoneNo(Integer fId);
 }

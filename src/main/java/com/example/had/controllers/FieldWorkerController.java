@@ -41,4 +41,8 @@ public class FieldWorkerController {
     public ResponseEntity<List<FieldWorkerDto>> getAllFieldWorkers() {
         return ResponseEntity.ok(this.fieldWorkerService.getAllFieldWorkers());
     }
+    @GetMapping("/phoneNo/{fieldWorkerId}")
+    public ResponseEntity<String> getPhoneNo(@PathVariable Integer fieldWorkerId) {
+        return ResponseEntity.ok(this.fieldWorkerService.getPhoneNo(fieldWorkerId));
+    }
 }

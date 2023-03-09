@@ -25,4 +25,9 @@ public class PatientController {
     public ResponseEntity<Integer> searchingPatient(@PathVariable int patientId){
         return ResponseEntity.ok(this.patientService.searchPatient(patientId));
     }
+
+    @GetMapping("/phoneNo/{patientId}")
+    public ResponseEntity<String> getPhoneNo(@PathVariable Integer patientId) {
+        return ResponseEntity.ok(this.patientService.getPhoneNo(patientId));
+    }
 }

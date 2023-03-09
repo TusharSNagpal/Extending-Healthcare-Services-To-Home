@@ -7,4 +7,6 @@ import java.util.List;
 public interface VisitService {
     void createVisit(VisitDto visitDto);
     List<VisitDto> activeVisits(int hospitalId);
+  void deactivateVisits(Integer visitId);
+
 }

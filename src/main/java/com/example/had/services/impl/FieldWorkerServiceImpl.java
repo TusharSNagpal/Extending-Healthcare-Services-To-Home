@@ -1,6 +1,7 @@
 package com.example.had.services.impl;
 
 import com.example.had.entities.FieldWorker;
+import com.example.had.entities.Patient;
 import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.FieldWorkerDto;
 import com.example.had.repositories.FieldWorkerRepo;
@@ -65,4 +66,13 @@ public class FieldWorkerServiceImpl implements FieldWorkerService {
         });
         this.fieldWorkerRepo.delete(fieldWorker);
     }
+    @Override
+    public String getPhoneNo(Integer fId)
+    {
+        FieldWorker fieldWorker= this.fieldWorkerRepo.findById(fId).orElseThrow(() -> {
+            return new ResourceNotFoundException("fieldWorker", "fieldWorkerId", fId); });
+        String phoneNo=fieldWorker.getPhoneNo();
+        return phoneNo;
+    }
+
 }
