@@ -1,6 +1,7 @@
 package com.example.had.controllers;
 
 //import com.example.had.payloads.ApiResponse;
+import com.example.had.payloads.DoctorDto;
 import com.example.had.payloads.PatientDto;
 import com.example.had.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,19 @@ public class PatientController {
         return new ResponseEntity<>(patientDto1, HttpStatus.CREATED);
     }
 
-    @GetMapping("/search/{patientId}")
-    public ResponseEntity<Integer> searchingPatient(@PathVariable int patientId){
+    @GetMapping("/{patientId}")
+    public ResponseEntity<PatientDto> searchingPatient(@PathVariable int patientId){
         return ResponseEntity.ok(this.patientService.searchPatient(patientId));
     }
 
     @GetMapping("/phoneNo/{patientId}")
     public ResponseEntity<String> getPhoneNo(@PathVariable Integer patientId) {
         return ResponseEntity.ok(this.patientService.getPhoneNo(patientId));
+    }
+
+    @PutMapping("/{patientId}")
+    public ResponseEntity<PatientDto> updatePatient(@RequestBody PatientDto patientDto, @PathVariable Integer patientId) {
+        PatientDto updatedPatient = this.patientService.updatePatient(patientDto, patientId);
+        return ResponseEntity.ok(updatedPatient);
     }
 }

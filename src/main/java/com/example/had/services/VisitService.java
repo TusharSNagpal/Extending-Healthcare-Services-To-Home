@@ -8,5 +8,5 @@ public interface VisitService {
     void createVisit(VisitDto visitDto);
     List<VisitDto> activeVisits(int hospitalId);
   void deactivateVisits(Integer visitId);
-
+  VisitDto updateVisit(VisitDto visitDto, Integer visitId);
 }

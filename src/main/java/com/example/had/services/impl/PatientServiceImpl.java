@@ -63,9 +63,22 @@ public class PatientServiceImpl implements PatientService {
         return phoneNo;
     }
 
-    public int searchPatient(int patientId){
+    public PatientDto searchPatient(int patientId){
         Patient patientFound = this.patientRepo.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient", "Patient ID", patientId));
+        return this.modelMapper.map(patientFound, PatientDto.class);
+    }
 
-        return patientId;
+    public PatientDto updatePatient(PatientDto patientDto, Integer patientId) {
+        Patient patient = this.patientRepo.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient", "Patient ID", patientId));
+        patient.setFname(patientDto.getFname());
+        patient.setLname(patientDto.getLname());
+        patient.setAddress(patientDto.getAddress());
+        patient.setGender(patientDto.getGender());
+        patient.setPhoneNo(patientDto.getPhoneNo());
+        patient.setDob(patientDto.getDob());
+        patient.setHospital(patientDto.getHospital());
+        patient.setSupervisor(patientDto.getSupervisor());
+        Patient updatedPatient = this.patientRepo.save(patient);
+        return this.modelMapper.map(updatedPatient, PatientDto.class);
     }
 }

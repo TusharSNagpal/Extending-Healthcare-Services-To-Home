@@ -35,4 +35,10 @@ public class VisitController {
        this.visitService.deactivateVisits(visitId);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Visit deactivated successfully", true), HttpStatus.OK);
     }
+
+    @PutMapping("/visited/{visitId}")
+    public ResponseEntity<VisitDto> updateVisit(@RequestBody VisitDto visitDto, @PathVariable Integer visitId) {
+        VisitDto updatedVisit = this.visitService.updateVisit(visitDto, visitId);
+        return ResponseEntity.ok(updatedVisit);
+    }
 }
