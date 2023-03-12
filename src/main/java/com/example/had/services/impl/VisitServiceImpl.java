@@ -64,13 +64,21 @@ public class VisitServiceImpl implements VisitService {
         return activeVisitsDtos;
     }
 
+    @Override
    public void deactivateVisits(Integer visitId)
     {
-
         Visit visit=this.visitRepo.findById(visitId).orElseThrow(() -> new ResourceNotFoundException("Visit","Id",visitId));
         visit.setIsActive(0);
 
         this.visitRepo.save(visit);
+    }
 
+    @Override
+    public VisitDto updateVisit(VisitDto visitDto, Integer visitId) {
+        Visit visit = this.visitRepo.findById(visitId).orElseThrow(()->new ResourceNotFoundException("Visit", "Visit Id", visitId));
+        visit.setPrescription(visitDto.getPrescription());
+        visit.setSymptoms(visitDto.getSymptoms());
+        Visit updatedVisit = visitRepo.save(visit);
+        return this.modelMapper.map(updatedVisit, VisitDto.class);
     }
 }

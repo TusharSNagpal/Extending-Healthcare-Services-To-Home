@@ -7,5 +7,7 @@ public interface PatientService {
 
     String getPhoneNo(Integer pId);
     
-    int searchPatient(int patientId);
+    PatientDto searchPatient(int patientId);
+
+    PatientDto updatePatient(PatientDto patientDto, Integer patientId);
 }
