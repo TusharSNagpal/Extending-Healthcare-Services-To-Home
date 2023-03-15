@@ -24,7 +24,7 @@ public class ReviewByFieldWorker {
     @Column
     private String review3;
 
-    @OneToOne
-    @JoinColumn(name="followUpId")
-    private FollowUps followUps;
+//    @OneToOne
+//    @JoinColumn(name="followUpId")
+//    private FollowUps followUps;
 }

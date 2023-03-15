@@ -25,5 +25,6 @@ public class FieldWorker {
     private String DOB;
     private String phoneNo;
     private String address;
+    private int numOfTasksPerDay;
     private String registrationDate;
 }

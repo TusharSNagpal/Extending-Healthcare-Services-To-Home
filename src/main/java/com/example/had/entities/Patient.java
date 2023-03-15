@@ -1,6 +1,7 @@
 package com.example.had.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity(name="patient")
 @Table(name="patient")
 public class Patient {
@@ -26,6 +28,9 @@ public class Patient {
 
     @Column
     private String address;
+
+    @Column
+    private int pinCode;
 
     @Column
     private String gender;
