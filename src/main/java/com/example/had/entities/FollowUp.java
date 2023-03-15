@@ -1,12 +1,18 @@
 package com.example.had.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
-
-@Entity(name="followUps")
-@Table(name="followUps")
-public class FollowUps {
+@Entity(name="followUp")
+@Table(name="followUp")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class FollowUp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,12 +21,6 @@ public class FollowUps {
     @Column
     private String followUpDate;
 
-//    @Column
-//    String taskByDoctor;
-//
-//    @Column
-//    String reviewByFieldWorker;
-
     @Column
     private boolean urgentFlag;
 
@@ -28,14 +28,17 @@ public class FollowUps {
     private int isActive;
 
     @Column
-    private String imagePath;
+    private String taskAssignedByDoctor;
+
+    @Column
+    private String reviewByFieldWorker;
 
     @ManyToOne
     @JoinColumn(name="visitId")
-    private Visit visitId;
+    private Visit visit;
 
     @ManyToOne
-    @JoinColumn(name="fwInHosp")
+    @JoinColumn(name="fwInHospId")
     private FieldWorkerInHospital fieldWorkerInHospital;
 
 }
