@@ -54,9 +54,6 @@ public class SupervisorController {
     }
 
 
-    @GetMapping("/hospital/{hospitalId}")
-    public ResponseEntity<List<FieldWorkerInHospitalDto>> getFieldWorker(@PathVariable Integer hospitalId) {
-        return ResponseEntity.ok(this.supervisorService.getFieldWorker(hospitalId));
-    }
+   
 
 }

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalService {
@@ -70,6 +72,16 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         fieldWorkerInHospital.setRegistrationDate(formatter.format(date));
         FieldWorkerInHospital fieldWorkerInHospital1 = this.fieldWorkerInHospitalRepo.save(fieldWorkerInHospital);
+
+    }
+
+    @Override
+    public List<FieldWorkerInHospitalDto> getFieldWorker(Integer hospitalId) {
+
+        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "Hospital Id", hospitalId));
+        List<FieldWorkerInHospital> fieldWorkerInHospitals= this.fieldWorkerInHospitalRepo.findAllByHospital(hospital);
+        List<FieldWorkerInHospitalDto> fieldWorkerInHospitalDtos = fieldWorkerInHospitals.stream().map(fieldWorkerInHospital -> this.modelMapper.map(fieldWorkerInHospital, FieldWorkerInHospitalDto.class)).collect(Collectors.toList());
+        return fieldWorkerInHospitalDtos;
 
     }
 

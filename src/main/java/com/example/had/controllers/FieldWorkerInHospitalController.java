@@ -37,4 +37,9 @@ public class FieldWorkerInHospitalController {
         return new ResponseEntity<ApiResponse>(new ApiResponse("Field Worker registered successfully",true), HttpStatus.OK);
     }
 
+    @GetMapping("/hospital/{hospitalId}")
+    public ResponseEntity<List<FieldWorkerInHospitalDto>> getFieldWorker(@PathVariable Integer hospitalId) {
+        return ResponseEntity.ok(this.fieldWorkerInHospitalService.getFieldWorker(hospitalId));
+    }
+
 }

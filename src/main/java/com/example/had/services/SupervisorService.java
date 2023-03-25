@@ -17,7 +17,7 @@ public interface SupervisorService {
     String getPhoneNo(Integer sId);
 
 
-    List<FieldWorkerInHospitalDto> getFieldWorker(Integer hospitalId);
+
 
 
 
