@@ -72,6 +72,7 @@ public class FollowUpServiceImpl implements FollowUpService {
         FollowUp followUp = this.followUpRepo.findById(followUpId).orElseThrow(()-> new ResourceNotFoundException("FollowUp","followUpId",followUpId));
         followUp.setReviewByFieldWorker(followUpDto.getReviewByFieldWorker());
         followUp.setIsActive(2);
+        followUp.setUrgentFlag(false);
         this.followUpRepo.save(followUp);
     }
 //

@@ -22,10 +22,10 @@ public class FollowUp {
     private String followUpDate;
 
     @Column
-    private boolean urgentFlag;
+    private Boolean urgentFlag;
 
     @Column
-    private int isActive;
+    private Integer isActive;
 
     @Column
     private String taskAssignedByDoctor;
