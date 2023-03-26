@@ -31,5 +31,8 @@ public class FieldWorkerInHospital {
     private FieldWorker fieldWorker;
 
     @Column
+    private int numOfTasksPerDay;
+
+    @Column
     private String registrationDate;
 }

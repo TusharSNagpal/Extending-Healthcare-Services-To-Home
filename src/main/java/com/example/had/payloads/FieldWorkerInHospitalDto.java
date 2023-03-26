@@ -19,10 +19,11 @@ import java.util.Date;
 public class FieldWorkerInHospitalDto{
 
 
-    private int fwInHosp;
+    private int fwInHospId;
 
     private Hospital hospital;
 
     private FieldWorker fieldWorker;
     private String registrationDate;
+    private int numOfTasksPerDay;
 }

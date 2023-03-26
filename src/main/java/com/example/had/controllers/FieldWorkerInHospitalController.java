@@ -26,7 +26,7 @@ public class FieldWorkerInHospitalController {
     }
 
     @GetMapping("/fwId/{fwInHospId}")
-    public ResponseEntity<FieldWorkerInHospitalDto>geFieldWorkerInHospitalById(@PathVariable Integer fwInHospId) {
+    public ResponseEntity<FieldWorkerInHospitalDto>getFieldWorkerInHospitalById(@PathVariable Integer fwInHospId) {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.geFieldWorkerInHospitalById(fwInHospId));
     }
 
