@@ -24,7 +24,7 @@ public class TaskAssignedByDoctor {
     @Column
     private String task3;
 
-    @OneToOne
-    @JoinColumn(name="folloUpId")
-    private FollowUps followUps;
+//    @OneToOne
+//    @JoinColumn(name="folloUpId")
+//    private FollowUps followUps;
 }
