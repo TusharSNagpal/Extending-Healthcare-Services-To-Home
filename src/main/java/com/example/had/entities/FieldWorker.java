@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -27,4 +28,10 @@ public class FieldWorker {
     private String address;
     private int numOfTasksPerDay;
     private String registrationDate;
+
+    public Optional<Object> stream() {
+        return null;
+    }
+
+
 }

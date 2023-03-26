@@ -16,18 +16,13 @@ public class FollowUpDto {
 
     private int followUpId;
 
-
     private String followUpDate;
-
 
     private boolean urgentFlag;
 
-
     private int isActive;
 
-
     private String taskAssignedByDoctor;
-
 
     private String reviewByFieldWorker;
 
