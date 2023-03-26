@@ -42,19 +42,32 @@ public class FollowUpServiceImpl implements FollowUpService {
 
     @Override
     public FollowUpDto createFollowUp(FollowUpDto followUpDto) {
-        FollowUp followUp = this.modelMapper.map(followUpDto, FollowUp.class);
-        int visitId = followUp.getVisit().getVisitId();
-        int fwInHospId = followUp.getFieldWorkerInHospital().getFwInHospId();
+        int visitId = followUpDto.getVisit().getVisitId();
+        int fwInHospId = followUpDto.getFieldWorkerInHospital().getFwInHospId();
         System.out.println(fwInHospId);
 
         Visit visit = this.visitRepo.findById(visitId).orElseThrow(()->new ResourceNotFoundException("Visit","visit id",visitId));
-        FieldWorkerInHospital fieldWorkerInHospital = this.fieldWorkerInHospitalRepo.findById(fwInHospId).orElseThrow(()->new ResourceNotFoundException("FieldWorkerInHospital","fwInHosp id",fwInHospId));
+//        System.out.println(followUpDto.getFieldWorkerInHospital().getFwInHospId());
+        if(fwInHospId!=-1){
+            FieldWorkerInHospital fieldWorkerInHospital = this.fieldWorkerInHospitalRepo.findById(fwInHospId).orElseThrow(()->new ResourceNotFoundException("FieldWorkerInHospital","fwInHosp id",fwInHospId));
+            followUpDto.setFieldWorkerInHospital(fieldWorkerInHospital);
+        }
+        else{
+            followUpDto.setFieldWorkerInHospital(null);
+        }
+//
+        followUpDto.setVisit(visit);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-        followUp.setVisit(visit);
-        followUp.setFieldWorkerInHospital(fieldWorkerInHospital);
+//        followUpDto.setFollowUpDate(formatter.format(followUpDto.getFollowUpDate()));
+        FollowUp followUp = this.modelMapper.map(followUpDto, FollowUp.class);
 
+//        followUp.setFieldWorkerInHospital(fieldWorkerInHospital);
+        Date date = new Date();
+        System.out.println(date);
         FollowUp savedFollowUp = this.followUpRepo.save(followUp);
 
+//        return null;
         return this.modelMapper.map(savedFollowUp, FollowUpDto.class);
 
     }
