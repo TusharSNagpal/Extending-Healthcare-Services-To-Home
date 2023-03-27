@@ -1,9 +1,9 @@
 package com.example.had.controllers;
 
 import com.example.had.payloads.ApiResponse;
-import com.example.had.payloads.DoctorDto;
+//import com.example.had.payloads.DoctorDto;
 import com.example.had.payloads.FollowUpDto;
-import com.example.had.payloads.VisitDto;
+//import com.example.had.payloads.VisitDto;
 import com.example.had.services.FollowUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/followUps")
+@CrossOrigin(origins = "*")
 public class FollowUpController {
 
     @Autowired

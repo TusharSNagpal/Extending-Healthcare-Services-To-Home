@@ -1,6 +1,6 @@
 package com.example.had.controllers;
 
-import com.example.had.payloads.HospitalDto;
+//import com.example.had.payloads.HospitalDto;
 import com.example.had.payloads.SupervisorDto;
 import com.example.had.services.SupervisorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/supervisors")
+@CrossOrigin(origins = "*")
+
 public class SupervisorController {
 
     @Autowired
