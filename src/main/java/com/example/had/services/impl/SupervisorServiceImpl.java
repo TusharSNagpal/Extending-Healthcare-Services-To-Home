@@ -13,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,11 @@ public class SupervisorServiceImpl implements SupervisorService {
         int hospitalId = supervisor.getHospital().getHospitalId();
         Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "Hospital Id", hospitalId));
         supervisor.setHospital(hospital);
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDate = formatter.format(date);
+        supervisor.setRegistrationDate(currentDate);
+        supervisor.setDob(supervisorDto.getDob().substring(0, 10));
         Supervisor savedSupervisor = this.supervisorRepo.save(supervisor);
         return this.modelMapper.map(savedSupervisor, SupervisorDto.class);
     }
@@ -46,10 +53,12 @@ public class SupervisorServiceImpl implements SupervisorService {
         supervisor.setFname(supervisorDto.getFname());
         supervisor.setLname(supervisorDto.getLname());
         supervisor.setGender(supervisorDto.getGender());
-        supervisor.setDOB(supervisorDto.getDOB());
+        supervisor.setDob(supervisorDto.getDob());
         supervisor.setPhoneNo(supervisorDto.getPhoneNo());
         supervisor.setAddress(supervisorDto.getAddress());
-        supervisor.setHospital(supervisorDto.getHospital());
+        int hospitalId = supervisorDto.getHospital().getHospitalId();
+        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "Hospital Id", hospitalId));
+        supervisor.setHospital(hospital);
         supervisor.setRegistrationDate(supervisorDto.getRegistrationDate());
         Supervisor updatedSupervisor = this.supervisorRepo.save(supervisor);
         return this.modelMapper.map(updatedSupervisor, SupervisorDto.class);

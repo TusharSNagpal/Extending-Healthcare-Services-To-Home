@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +27,10 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public HospitalDto createHospital(HospitalDto hospitalDto) {
         Hospital hospital = this.modelMapper.map(hospitalDto, Hospital.class);
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDate = formatter.format(date);
+        hospital.setRegistrationDate(currentDate);
         Hospital savedHospital = this.hospitalRepo.save(hospital);
         return this.modelMapper.map(savedHospital, HospitalDto.class);
     }
@@ -63,5 +69,12 @@ public class HospitalServiceImpl implements HospitalService {
         });
         this.hospitalRepo.delete(hospital);
 
+    }
+
+    @Override
+    public List<HospitalDto> supervisorNotAssignedHospitals() {
+        List<Hospital> hospitals = this.hospitalRepo.findSupervisorNotAssignedHospitals();
+        List<HospitalDto> hospitalDtos = hospitals.stream().map(hospital -> this.modelMapper.map(hospital, HospitalDto.class)).collect(Collectors.toList());
+        return hospitalDtos;
     }
 }
