@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,12 @@ public class FieldWorkerServiceImpl implements FieldWorkerService {
     @Override
     public FieldWorkerDto createFieldWorker(FieldWorkerDto fieldWorkerDto) {
         FieldWorker fieldWorker = this.modelMapper.map(fieldWorkerDto, FieldWorker.class);
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDate = formatter.format(date);
+        fieldWorker.setRegistrationDate(currentDate);
+        fieldWorker.setNumOfTasksPerDay(10);
+        fieldWorker.setDob(fieldWorkerDto.getDob().substring(0, 10));
         FieldWorker savedFieldWorker = this.fieldWorkerRepo.save(fieldWorker);
         return this.modelMapper.map(savedFieldWorker, FieldWorkerDto.class);
     }
@@ -36,7 +44,7 @@ public class FieldWorkerServiceImpl implements FieldWorkerService {
         fieldWorker.setFname(fieldWorkerDto.getFname());
         fieldWorker.setLname(fieldWorkerDto.getLname());
         fieldWorker.setGender(fieldWorkerDto.getGender());
-        fieldWorker.setDOB(fieldWorkerDto.getDOB());
+        fieldWorker.setDob(fieldWorkerDto.getDob());
         fieldWorker.setPhoneNo(fieldWorkerDto.getPhoneNo());
         fieldWorker.setAddress(fieldWorkerDto.getAddress());
         fieldWorker.setRegistrationDate(fieldWorkerDto.getRegistrationDate());

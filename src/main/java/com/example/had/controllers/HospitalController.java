@@ -44,4 +44,9 @@ public class HospitalController {
         return ResponseEntity.ok(this.hospitalService.getAllHospitals());
     }
 
+    @GetMapping("/noSupervisor")
+    public ResponseEntity<List<HospitalDto>> supervisorNotAssignedHospitals() {
+        return ResponseEntity.ok(this.hospitalService.supervisorNotAssignedHospitals());
+    }
+
 }

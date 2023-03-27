@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,11 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorDto createDoctor(DoctorDto doctorDto) {
         Doctor doctor = this.modelMapper.map(doctorDto, Doctor.class);
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDate = formatter.format(date);
+        doctor.setRegistrationDate(currentDate);
+        doctor.setDob(doctorDto.getDob().substring(0, 10));
         Doctor savedDoctor = this.doctorRepo.save(doctor);
         return this.modelMapper.map(savedDoctor, DoctorDto.class);
     }
@@ -36,7 +43,7 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setFname(doctorDto.getFname());
         doctor.setLname(doctorDto.getLname());
         doctor.setGender(doctorDto.getGender());
-        doctor.setDOB(doctorDto.getDOB());
+        doctor.setDob(doctorDto.getDob());
         doctor.setAddress(doctorDto.getAddress());
         doctor.setPhoneNo(doctorDto.getPhoneNo());
         doctor.setRegistrationDate(doctorDto.getRegistrationDate());

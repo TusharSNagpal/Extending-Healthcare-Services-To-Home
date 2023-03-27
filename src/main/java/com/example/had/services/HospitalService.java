@@ -10,5 +10,6 @@ public interface HospitalService {
     HospitalDto updateHospital(HospitalDto hospitalDto, Integer hospitalId);
     HospitalDto getHospitalById(Integer hospitalId);
     List<HospitalDto> getAllHospitals();
+    List<HospitalDto> supervisorNotAssignedHospitals();
     void deleteHospital(Integer hospitalId);
 }
