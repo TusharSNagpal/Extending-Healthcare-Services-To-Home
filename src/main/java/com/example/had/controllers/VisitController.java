@@ -1,7 +1,7 @@
 package com.example.had.controllers;
 
 import com.example.had.payloads.ApiResponse;
-import com.example.had.payloads.HospitalDto;
+//import com.example.had.payloads.HospitalDto;
 import com.example.had.payloads.VisitDto;
 import com.example.had.services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/visits")
+@CrossOrigin(origins = "*")
 public class VisitController {
     @Autowired
     private VisitService visitService;

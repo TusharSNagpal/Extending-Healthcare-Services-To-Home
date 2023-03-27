@@ -2,6 +2,7 @@ package com.example.had.controllers;
 
 import com.example.had.entities.FieldWorkerInHospital;
 import com.example.had.payloads.*;
+
 import com.example.had.services.SupervisorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/supervisors")
+@CrossOrigin(origins = "*")
+
 public class SupervisorController {
 
     @Autowired
@@ -52,8 +55,4 @@ public class SupervisorController {
     public ResponseEntity<String> getPhoneNo(@PathVariable Integer supervisorId) {
         return ResponseEntity.ok(this.supervisorService.getPhoneNo(supervisorId));
     }
-
-
-   
-
 }
