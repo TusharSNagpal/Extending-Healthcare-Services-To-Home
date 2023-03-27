@@ -20,7 +20,7 @@ public class VisitController {
 
     // POST - create visit
     @PostMapping("/")
-    public ResponseEntity<ApiResponse> createUser(@RequestBody VisitDto visitDto){
+    public ResponseEntity<ApiResponse> createVisit(@RequestBody VisitDto visitDto){
 //        System.out.println(visitDto.);
         this.visitService.createVisit(visitDto);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Visit created successfully",true), HttpStatus.OK);
