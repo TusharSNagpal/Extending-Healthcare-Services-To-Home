@@ -44,6 +44,7 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
         });
         fieldWorkerInHospital.setFieldWorker(fieldWorker);
         fieldWorkerInHospital.setHospital(hospital);
+        fieldWorkerInHospital.setNumOfTasksPerDay(fieldWorkerInHospitalDto.getNumOfTasksPerDay());
         //fieldWorkerInHospital.setRegistrationDate(fieldWorkerInHospitalDto.getRegistrationDate());
        // fieldWorkerInHospital.setFwInHosp(fieldWorkerInHospitalDto.getFwInHosp());
 
@@ -78,8 +79,8 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
     @Override
     public List<FieldWorkerInHospitalDto> getFieldWorker(Integer hospitalId) {
 
-        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "Hospital Id", hospitalId));
-        List<FieldWorkerInHospital> fieldWorkerInHospitals= this.fieldWorkerInHospitalRepo.findAllByHospital(hospital);
+//        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "Hospital Id", hospitalId));
+        List<FieldWorkerInHospital> fieldWorkerInHospitals= this.fieldWorkerInHospitalRepo.findAllByHospitalAAndNumOfTasksPerDay(hospitalId);
         List<FieldWorkerInHospitalDto> fieldWorkerInHospitalDtos = fieldWorkerInHospitals.stream().map(fieldWorkerInHospital -> this.modelMapper.map(fieldWorkerInHospital, FieldWorkerInHospitalDto.class)).collect(Collectors.toList());
         return fieldWorkerInHospitalDtos;
 
