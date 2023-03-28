@@ -24,6 +24,9 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
     private FieldWorkerInHospitalRepo fieldWorkerInHospitalRepo;
     @Autowired
     private HospitalRepo hospitalRepo;
+
+
+
     @Autowired
     private FieldWorkerRepo fieldWorkerRepo;
 
@@ -84,6 +87,15 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
         List<FieldWorkerInHospitalDto> fieldWorkerInHospitalDtos = fieldWorkerInHospitals.stream().map(fieldWorkerInHospital -> this.modelMapper.map(fieldWorkerInHospital, FieldWorkerInHospitalDto.class)).collect(Collectors.toList());
         return fieldWorkerInHospitalDtos;
 
+    }
+
+    @Override
+    public String getPhoneNo(Integer fwInHospId) {
+
+        FieldWorkerInHospital fieldWorkerInHospital= this.fieldWorkerInHospitalRepo.findById(fwInHospId).orElseThrow(() -> {
+            return new ResourceNotFoundException("fieldWorkerInHospital", "fwInHospId", fwInHospId); });
+        String phoneNo=fieldWorkerInHospital.getFieldWorker().getPhoneNo();
+        return phoneNo;
     }
 
 
