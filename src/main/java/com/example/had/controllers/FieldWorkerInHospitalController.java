@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/fieldWorkerInHospital")
+@CrossOrigin(origins = "*")
 public class FieldWorkerInHospitalController {
     @Autowired
     FieldWorkerInHospitalService fieldWorkerInHospitalService;
