@@ -38,7 +38,7 @@ public class SupervisorController {
     }
 
     @GetMapping("/{supervisorId}")
-    public ResponseEntity<SupervisorDto> getSupervisorby(@PathVariable Integer supervisorId) {
+    public ResponseEntity<SupervisorDto> getSupervisorById(@PathVariable Integer supervisorId) {
         return ResponseEntity.ok(this.supervisorService.getSupervisorById(supervisorId));
     }
 

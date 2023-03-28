@@ -42,4 +42,9 @@ public class FieldWorkerInHospitalController {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.getFieldWorker(hospitalId));
     }
 
+    @GetMapping("/phoneNo/{fwInHospId}")
+    public ResponseEntity<String> getPhoneNo(@PathVariable Integer fwInHospId) {
+        return ResponseEntity.ok(this.fieldWorkerInHospitalService.getPhoneNo(fwInHospId));
+    }
+
 }

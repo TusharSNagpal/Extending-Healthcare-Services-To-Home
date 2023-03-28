@@ -14,6 +14,8 @@ public interface FieldWorkerInHospitalService {
     void registerFieldWorker(Integer fwId, Integer hosId);
     List<FieldWorkerInHospitalDto> getFieldWorker(Integer hospitalId);
 
+    String getPhoneNo(Integer fwInHospId);
+
 
 
 }
