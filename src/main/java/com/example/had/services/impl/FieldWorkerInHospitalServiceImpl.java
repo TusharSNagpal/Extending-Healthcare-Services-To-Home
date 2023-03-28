@@ -85,7 +85,13 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
 
     }
 
-
+    public String getPhoneNo(Integer fId)
+    {
+        FieldWorkerInHospital fieldWorkerInHospital= this.fieldWorkerInHospitalRepo.findById(fId).orElseThrow(() -> {
+            return new ResourceNotFoundException("fieldWorker", "fieldWorkerId", fId); });
+        String phoneNo=fieldWorkerInHospital.getFieldWorker().getPhoneNo();
+        return phoneNo;
+    }
 }
 
 

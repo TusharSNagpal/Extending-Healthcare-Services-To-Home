@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/supervisors")
+@CrossOrigin(origins = "*")
 public class SupervisorController {
 
     @Autowired

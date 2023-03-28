@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/hospitals")
+@CrossOrigin(origins = "*")
 public class HospitalController {
     @Autowired
     private HospitalService hospitalService;
@@ -37,9 +38,6 @@ public class HospitalController {
         return ResponseEntity.ok(this.hospitalService.getHospitalById(hospitalId));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<HospitalDto>> getAllHospitals() {
-        return ResponseEntity.ok(this.hospitalService.getAllHospitals());
-    }
+
 
 }

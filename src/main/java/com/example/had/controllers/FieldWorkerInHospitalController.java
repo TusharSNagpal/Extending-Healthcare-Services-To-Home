@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/fieldWorkerInHospital")
+@CrossOrigin(origins = "*")
 public class FieldWorkerInHospitalController {
     @Autowired
     FieldWorkerInHospitalService fieldWorkerInHospitalService;
@@ -42,4 +43,8 @@ public class FieldWorkerInHospitalController {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.getFieldWorker(hospitalId));
     }
 
+    @GetMapping("/phoneNo/{fieldWorkerInHospitalId}")
+    public ResponseEntity<String> getPhoneNo(@PathVariable Integer fieldWorkerInHospitalId) {
+        return ResponseEntity.ok(this.fieldWorkerInHospitalService.getPhoneNo(fieldWorkerInHospitalId));
+    }
 }

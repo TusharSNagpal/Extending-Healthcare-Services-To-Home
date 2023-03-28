@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/doctorInHospital")
-
+@CrossOrigin(origins = "*")
 public class DoctorInHospitalController {
 
     @Autowired
@@ -38,9 +38,9 @@ public class DoctorInHospitalController {
         return new ResponseEntity<ApiResponse>(new ApiResponse("Doctor registered successfully",true), HttpStatus.OK);
     }
 
-    @GetMapping("/phoneNo/{docId}")
-    public ResponseEntity<String> getPhoneNo(@PathVariable Integer docId) {
-        return ResponseEntity.ok(this.doctorService.getPhoneNo(docId));
+    @GetMapping("/phoneNo/{docInHospId}")
+    public ResponseEntity<String> getPhoneNo(@PathVariable Integer docInHospId) {
+        return ResponseEntity.ok(this.doctorInHospitalService.getPhoneNo(docInHospId));
     }
 
 }

@@ -72,10 +72,10 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
 
     @Override
     public String getPhoneNo(Integer sId) {
-        Doctor doctor= this.doctorRepo.findById(sId).orElseThrow(() -> {
-            return new ResourceNotFoundException("doctor", "doctorId", sId);
+        DoctorInHospital doctorInHosp= this.doctorInHospitalRepo.findById(sId).orElseThrow(() -> {
+            return new ResourceNotFoundException("doctor", "doctorInHospId", sId);
         });
-        String phoneNo = doctor.getPhoneNo();
+        String phoneNo = doctorInHosp.getDoctor().getPhoneNo();
         return phoneNo;
     }
 
