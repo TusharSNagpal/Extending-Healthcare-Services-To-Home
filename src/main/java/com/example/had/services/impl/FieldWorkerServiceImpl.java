@@ -30,7 +30,7 @@ public class FieldWorkerServiceImpl implements FieldWorkerService {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate = formatter.format(date);
         fieldWorker.setRegistrationDate(currentDate);
-        fieldWorker.setNumOfTasksPerDay(10);
+//        fieldWorker.setNumOfTasksPerDay(10);
         fieldWorker.setDob(fieldWorkerDto.getDob().substring(0, 10));
         FieldWorker savedFieldWorker = this.fieldWorkerRepo.save(fieldWorker);
         return this.modelMapper.map(savedFieldWorker, FieldWorkerDto.class);

@@ -55,19 +55,10 @@ public class FollowUpServiceImpl implements FollowUpService {
         else{
             followUpDto.setFieldWorkerInHospital(null);
         }
-//
+
         followUpDto.setVisit(visit);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-//        followUpDto.setFollowUpDate(formatter.format(followUpDto.getFollowUpDate()));
         FollowUp followUp = this.modelMapper.map(followUpDto, FollowUp.class);
-
-//        followUp.setFieldWorkerInHospital(fieldWorkerInHospital);
-        Date date = new Date();
-        System.out.println(date);
         FollowUp savedFollowUp = this.followUpRepo.save(followUp);
-
-//        return null;
         return this.modelMapper.map(savedFollowUp, FollowUpDto.class);
 
     }
@@ -115,7 +106,11 @@ public class FollowUpServiceImpl implements FollowUpService {
 
     @Override
     public List<FollowUpDto> remainingFollowUps(int hospitalId) {
-        List<FollowUp> followUps = this.followUpRepo.findRemainingFollowUps(hospitalId);
+
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        visit.setVisitDate(formatter.format(date));
+        List<FollowUp> followUps = this.followUpRepo.findRemainingFollowUps(hospitalId,formatter.format(date));
         List<FollowUpDto> followUpDtos = followUps.stream().map((followUp -> this.modelMapper.map(followUp, FollowUpDto.class))).collect(Collectors.toList());
         return followUpDtos;
 
