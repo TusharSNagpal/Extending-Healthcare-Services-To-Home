@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/doctorInHospital")
 @CrossOrigin(origins = "*")
 public class DoctorInHospitalController {
-
     @Autowired
     DoctorInHospitalService doctorInHospitalService;
     @Autowired
@@ -26,7 +25,7 @@ public class DoctorInHospitalController {
         return ResponseEntity.ok(updatedDoctorInHospital );
     }
 
-    @GetMapping("/docId/{docInHospId}")
+    @GetMapping("/{docInHospId}")
     public ResponseEntity<DoctorInHospitalDto>getDoctorInHospitalById(@PathVariable Integer docInHospId) {
         return ResponseEntity.ok(this.doctorInHospitalService.getDoctorInHospitalById(docInHospId));
     }
