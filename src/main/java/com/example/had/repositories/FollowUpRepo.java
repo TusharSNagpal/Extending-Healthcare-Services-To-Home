@@ -22,7 +22,7 @@ public interface FollowUpRepo extends JpaRepository<FollowUp,Integer> {
 
     @Query(value="SELECT * FROM follow_up WHERE is_active=2 AND visit_id in (SELECT visit_id FROM visits WHERE doctor_in_hospital=:docInHospId)",nativeQuery = true)
     public List<FollowUp> findAllByVisits(@Param("docInHospId") int docInHospId);
-    @Query(value="SELECT * FROM follow_up WHERE fw_in_hosp_id IS NULL AND visit_id in (SELECT visit_id FROM visits where hospital_id=:hospitalId)",nativeQuery = true)
-    public List<FollowUp> findRemainingFollowUps(@Param("hospitalId")int hospitalId);
+    @Query(value="SELECT * FROM follow_up WHERE fw_in_hosp_id IS NULL AND follow_up_date=:curr_date AND visit_id in (SELECT visit_id FROM visits where hospital_id=:hospitalId)",nativeQuery = true)
+    public List<FollowUp> findRemainingFollowUps(@Param("hospitalId")int hospitalId, @Param("curr_date")String curr_date);
 
 }
