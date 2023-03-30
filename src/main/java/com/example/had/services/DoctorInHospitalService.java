@@ -8,6 +8,8 @@ public interface DoctorInHospitalService {
     DoctorInHospitalDto getDoctorInHospitalById(Integer docInHospId);
 
     void registerDoctor(Integer fwId, Integer hosId);
+
+    void deleteDoctor(Integer docInHospId);
     String getPhoneNo(Integer sId);
 
 }

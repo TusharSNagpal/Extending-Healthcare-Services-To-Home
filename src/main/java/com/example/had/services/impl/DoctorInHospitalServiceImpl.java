@@ -48,7 +48,7 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
     @Override
     public DoctorInHospitalDto getDoctorInHospitalById(Integer docInHospId) {
         DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(() -> {
-            return new ResourceNotFoundException("fieldWorkerInHospital", "fieldWorkerInHospitalId", docInHospId);
+            return new ResourceNotFoundException("doctorWorkerInHospital", "doctorWorkerInHospitalId", docInHospId);
         });
         return this.modelMapper.map(doctorInHospital, DoctorInHospitalDto.class);
     }
@@ -78,6 +78,12 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
         String phoneNo = doctorInHosp.getDoctor().getPhoneNo();
         return phoneNo;
     }
-
+    @Override
+    public void deleteDoctor(Integer docInHospId) {
+        DoctorInHospital doctorInHospital= this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(() -> {
+            return new ResourceNotFoundException("doctor", "doctorId", docInHospId);
+        });
+        this.doctorInHospitalRepo.delete(doctorInHospital);
+    }
 
 }

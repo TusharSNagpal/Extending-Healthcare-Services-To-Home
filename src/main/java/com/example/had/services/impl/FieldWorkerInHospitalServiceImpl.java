@@ -1,5 +1,6 @@
 package com.example.had.services.impl;
 
+import com.example.had.entities.DoctorInHospital;
 import com.example.had.entities.FieldWorker;
 import com.example.had.entities.FieldWorkerInHospital;
 import com.example.had.entities.Hospital;
@@ -92,6 +93,14 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
         String phoneNo=fieldWorkerInHospital.getFieldWorker().getPhoneNo();
         return phoneNo;
     }
+    @Override
+    public void deleteFieldWorker(Integer fwId) {
+        FieldWorkerInHospital fieldWorkerInHospital= this.fieldWorkerInHospitalRepo.findById(fwId).orElseThrow(() -> {
+            return new ResourceNotFoundException("fieldWorker", "fwId", fwId);
+        });
+        this.fieldWorkerInHospitalRepo.delete(fieldWorkerInHospital);
+    }
+
 }
 
 
