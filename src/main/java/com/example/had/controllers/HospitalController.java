@@ -32,6 +32,7 @@ public class HospitalController {
     public void deleteHospital(@PathVariable Integer hospitalId) {
         this.hospitalService.deleteHospital(hospitalId);
     }
+    
 
     @GetMapping("/{hospitalId}")
     public ResponseEntity<HospitalDto> getHospital(@PathVariable Integer hospitalId) {
@@ -39,5 +40,10 @@ public class HospitalController {
     }
 
 
+
+    @GetMapping("/noSupervisor")
+    public ResponseEntity<List<HospitalDto>> supervisorNotAssignedHospitals() {
+        return ResponseEntity.ok(this.hospitalService.supervisorNotAssignedHospitals());
+    }
 
 }

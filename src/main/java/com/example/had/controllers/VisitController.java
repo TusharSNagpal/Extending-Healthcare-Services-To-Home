@@ -1,7 +1,7 @@
 package com.example.had.controllers;
 
 import com.example.had.payloads.ApiResponse;
-import com.example.had.payloads.HospitalDto;
+//import com.example.had.payloads.HospitalDto;
 import com.example.had.payloads.VisitDto;
 import com.example.had.services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class VisitController {
 
     // POST - create visit
     @PostMapping("/")
-    public ResponseEntity<ApiResponse> createUser(@RequestBody VisitDto visitDto){
+    public ResponseEntity<ApiResponse> createVisit(@RequestBody VisitDto visitDto){
 //        System.out.println(visitDto.);
         this.visitService.createVisit(visitDto);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Visit created successfully",true), HttpStatus.OK);

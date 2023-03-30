@@ -22,7 +22,7 @@ public class Doctor {
     private String fname;
     private String lname;
     private String gender;
-    private String DOB;
+    private String dob;
     private String phoneNo;
     private String address;
     private String registrationDate;

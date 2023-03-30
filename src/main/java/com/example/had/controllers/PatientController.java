@@ -1,7 +1,7 @@
 package com.example.had.controllers;
 
 //import com.example.had.payloads.ApiResponse;
-import com.example.had.payloads.DoctorDto;
+//import com.example.had.payloads.DoctorDto;
 import com.example.had.payloads.PatientDto;
 import com.example.had.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;

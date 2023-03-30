@@ -25,6 +25,9 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
     private FieldWorkerInHospitalRepo fieldWorkerInHospitalRepo;
     @Autowired
     private HospitalRepo hospitalRepo;
+
+
+
     @Autowired
     private FieldWorkerRepo fieldWorkerRepo;
 
@@ -45,6 +48,7 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
         });
         fieldWorkerInHospital.setFieldWorker(fieldWorker);
         fieldWorkerInHospital.setHospital(hospital);
+        fieldWorkerInHospital.setNumOfTasksPerDay(fieldWorkerInHospitalDto.getNumOfTasksPerDay());
         //fieldWorkerInHospital.setRegistrationDate(fieldWorkerInHospitalDto.getRegistrationDate());
        // fieldWorkerInHospital.setFwInHosp(fieldWorkerInHospitalDto.getFwInHosp());
 
@@ -79,27 +83,30 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
     @Override
     public List<FieldWorkerInHospitalDto> getFieldWorker(Integer hospitalId) {
 
-        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "Hospital Id", hospitalId));
-        List<FieldWorkerInHospital> fieldWorkerInHospitals= this.fieldWorkerInHospitalRepo.findAllByHospital(hospital);
+//        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "Hospital Id", hospitalId));
+        List<FieldWorkerInHospital> fieldWorkerInHospitals= this.fieldWorkerInHospitalRepo.findAllByHospitalAAndNumOfTasksPerDay(hospitalId);
         List<FieldWorkerInHospitalDto> fieldWorkerInHospitalDtos = fieldWorkerInHospitals.stream().map(fieldWorkerInHospital -> this.modelMapper.map(fieldWorkerInHospital, FieldWorkerInHospitalDto.class)).collect(Collectors.toList());
         return fieldWorkerInHospitalDtos;
 
     }
 
-    public String getPhoneNo(Integer fId)
-    {
-        FieldWorkerInHospital fieldWorkerInHospital= this.fieldWorkerInHospitalRepo.findById(fId).orElseThrow(() -> {
-            return new ResourceNotFoundException("fieldWorker", "fieldWorkerId", fId); });
+
+    @Override
+    public String getPhoneNo(Integer fwInHospId) {
+
+        FieldWorkerInHospital fieldWorkerInHospital= this.fieldWorkerInHospitalRepo.findById(fwInHospId).orElseThrow(() -> {
+            return new ResourceNotFoundException("fieldWorkerInHospital", "fwInHospId", fwInHospId); });
         String phoneNo=fieldWorkerInHospital.getFieldWorker().getPhoneNo();
         return phoneNo;
     }
-    @Override
+     @Override
     public void deleteFieldWorker(Integer fwId) {
         FieldWorkerInHospital fieldWorkerInHospital= this.fieldWorkerInHospitalRepo.findById(fwId).orElseThrow(() -> {
             return new ResourceNotFoundException("fieldWorker", "fwId", fwId);
         });
         this.fieldWorkerInHospitalRepo.delete(fieldWorkerInHospital);
     }
+
 
 }
 

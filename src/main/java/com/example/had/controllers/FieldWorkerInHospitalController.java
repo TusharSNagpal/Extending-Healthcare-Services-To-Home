@@ -26,8 +26,8 @@ public class FieldWorkerInHospitalController {
         return ResponseEntity.ok(updatedFieldWorkerInHospital );
     }
 
-    @GetMapping("/fwId/{fwInHospId}")
-    public ResponseEntity<FieldWorkerInHospitalDto>geFieldWorkerInHospitalById(@PathVariable Integer fwInHospId) {
+    @GetMapping("/{fwInHospId}")
+    public ResponseEntity<FieldWorkerInHospitalDto>getFieldWorkerInHospitalById(@PathVariable Integer fwInHospId) {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.geFieldWorkerInHospitalById(fwInHospId));
     }
 
@@ -43,13 +43,15 @@ public class FieldWorkerInHospitalController {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.getFieldWorker(hospitalId));
     }
 
-    @GetMapping("/phoneNo/{fieldWorkerInHospitalId}")
-    public ResponseEntity<String> getPhoneNo(@PathVariable Integer fieldWorkerInHospitalId) {
-        return ResponseEntity.ok(this.fieldWorkerInHospitalService.getPhoneNo(fieldWorkerInHospitalId));
-    }
+
 
     @DeleteMapping("/del/{fwId}")
     public void deleteFieldWorker(@PathVariable("fwId") Integer fwId) {
         this.fieldWorkerInHospitalService.deleteFieldWorker(fwId);
+
+    @GetMapping("/phoneNo/{fwInHospId}")
+    public ResponseEntity<String> getPhoneNo(@PathVariable Integer fwInHospId) {
+        return ResponseEntity.ok(this.fieldWorkerInHospitalService.getPhoneNo(fwInHospId));
+
     }
 }

@@ -4,6 +4,10 @@ import com.example.had.payloads.ApiResponse;
 import com.example.had.payloads.DoctorInHospitalDto;
 import com.example.had.services.DoctorInHospitalService;
 import com.example.had.services.DoctorService;
+import com.example.had.payloads.FieldWorkerInHospitalDto;
+import com.example.had.services.DoctorInHospitalService;
+import com.example.had.services.DoctorService;
+import com.example.had.services.FieldWorkerInHospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +28,17 @@ public class DoctorInHospitalController {
         return ResponseEntity.ok(updatedDoctorInHospital );
     }
 
-    @GetMapping("/docId/{docInHospId}")
+
+    @GetMapping("/{docInHospId}")
     public ResponseEntity<DoctorInHospitalDto>getDoctorInHospitalById(@PathVariable Integer docInHospId) {
         return ResponseEntity.ok(this.doctorInHospitalService.getDoctorInHospitalById(docInHospId));
     }
 
-    @PostMapping("/docInHosp/{docInHosp}/hospital/{hospitalId}")
+
+    @PostMapping("/docInHosp/{docInHospId}/hospital/{hospitalId}")
     //public registerFieldWorker(@PathVariable Integer fwInHosp,@PathVariable Integer hospitalId) ;
-    public ResponseEntity<ApiResponse>  registerDoctor(@PathVariable Integer docInHosp, @PathVariable Integer hospitalId){
-        this.doctorInHospitalService.registerDoctor(docInHosp,hospitalId);
+    public ResponseEntity<ApiResponse>  registerDoctor(@PathVariable Integer docInHospId, @PathVariable Integer hospitalId){
+        this.doctorInHospitalService.registerDoctor(docInHospId,hospitalId);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Doctor registered successfully",true), HttpStatus.OK);
     }
 
@@ -40,9 +46,11 @@ public class DoctorInHospitalController {
     public ResponseEntity<String> getPhoneNo(@PathVariable Integer docInHospId) {
         return ResponseEntity.ok(this.doctorInHospitalService.getPhoneNo(docInHospId));
     }
+
     @DeleteMapping("/del/{doctorInHospId}")
     public void deleteDoctor(@PathVariable("doctorInHospId") Integer doctorInHospId) {
         this.doctorInHospitalService.deleteDoctor(doctorInHospId);
     }
+
 
 }
