@@ -2,6 +2,8 @@ package com.example.had.controllers;
 
 import com.example.had.payloads.ApiResponse;
 import com.example.had.payloads.DoctorInHospitalDto;
+import com.example.had.services.DoctorInHospitalService;
+import com.example.had.services.DoctorService;
 import com.example.had.payloads.FieldWorkerInHospitalDto;
 import com.example.had.services.DoctorInHospitalService;
 import com.example.had.services.DoctorService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/doctorInHospital")
 @CrossOrigin(origins = "*")
 public class DoctorInHospitalController {
+
     @Autowired
     DoctorInHospitalService doctorInHospitalService;
     @Autowired
@@ -25,10 +28,12 @@ public class DoctorInHospitalController {
         return ResponseEntity.ok(updatedDoctorInHospital );
     }
 
+
     @GetMapping("/{docInHospId}")
     public ResponseEntity<DoctorInHospitalDto>getDoctorInHospitalById(@PathVariable Integer docInHospId) {
         return ResponseEntity.ok(this.doctorInHospitalService.getDoctorInHospitalById(docInHospId));
     }
+
 
     @PostMapping("/docInHosp/{docInHospId}/hospital/{hospitalId}")
     //public registerFieldWorker(@PathVariable Integer fwInHosp,@PathVariable Integer hospitalId) ;
@@ -41,5 +46,11 @@ public class DoctorInHospitalController {
     public ResponseEntity<String> getPhoneNo(@PathVariable Integer docInHospId) {
         return ResponseEntity.ok(this.doctorInHospitalService.getPhoneNo(docInHospId));
     }
+
+    @DeleteMapping("/del/{doctorInHospId}")
+    public void deleteDoctor(@PathVariable("doctorInHospId") Integer doctorInHospId) {
+        this.doctorInHospitalService.deleteDoctor(doctorInHospId);
+    }
+
 
 }

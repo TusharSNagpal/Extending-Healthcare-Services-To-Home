@@ -36,7 +36,9 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
             return new ResourceNotFoundException("Hospital", "hospital", doctorInHospitalDto.getHospital().getHospitalId());
         });
         Doctor doctor= this.doctorRepo.findById(doctorInHospitalDto.getDoctor().getDoctorId()).orElseThrow(() -> {
+
             return new ResourceNotFoundException("Doctor", "doctor",doctorInHospitalDto.getDoctor().getDoctorId() );
+
         });
         doctorInHospital.setDoctor(doctor);
         doctorInHospital.setHospital(hospital);
@@ -48,7 +50,9 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
     @Override
     public DoctorInHospitalDto getDoctorInHospitalById(Integer docInHospId) {
         DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(() -> {
+
             return new ResourceNotFoundException("doctorInHospital", "doctorInHospitalId", docInHospId);
+
         });
         return this.modelMapper.map(doctorInHospital, DoctorInHospitalDto.class);
     }
@@ -56,10 +60,9 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
     @Override
     public void registerDoctor(Integer docId, Integer hosId) {
         DoctorInHospital doctorInHospital = new DoctorInHospital();
-        Doctor doctor = this.doctorRepo.findById(docId).orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", docId));
-        ;
+       Doctor doctor = this.doctorRepo.findById(docId).orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", docId));
         Hospital hospital = this.hospitalRepo.findById(hosId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "hospital", hosId));
-        ;
+        
         doctorInHospital.setDoctor(doctor);
         doctorInHospital.setHospital(hospital);
         Date date = new Date();
@@ -71,6 +74,7 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
 
 
     @Override
+
     public String getPhoneNo(Integer docInHospId) {
         DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(() -> {
             return new ResourceNotFoundException("doctorInHospital", "doctorInHospital", docInHospId);
@@ -79,6 +83,15 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
         String phoneNo = doctorInHospital.getDoctor().getPhoneNo();
         return phoneNo;
     }
+    
+    @Override
+    public void deleteDoctor(Integer docInHospId) {
+        DoctorInHospital doctorInHospital= this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(() -> {
+            return new ResourceNotFoundException("doctor", "doctorId", docInHospId);
+        });
+        this.doctorInHospitalRepo.delete(doctorInHospital);
+    }
 
 
 }
+

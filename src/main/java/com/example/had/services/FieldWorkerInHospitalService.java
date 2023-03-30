@@ -15,6 +15,7 @@ public interface FieldWorkerInHospitalService {
     List<FieldWorkerInHospitalDto> getFieldWorker(Integer hospitalId);
 
     String getPhoneNo(Integer fwInHospId);
+    void deleteFieldWorker(Integer fwId);
 
 
 

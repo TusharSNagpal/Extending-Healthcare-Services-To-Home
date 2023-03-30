@@ -39,10 +39,7 @@ public class HospitalController {
         return ResponseEntity.ok(this.hospitalService.getHospitalById(hospitalId));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<HospitalDto>> getAllHospitals() {
-        return ResponseEntity.ok(this.hospitalService.getAllHospitals());
-    }
+
 
     @GetMapping("/noSupervisor")
     public ResponseEntity<List<HospitalDto>> supervisorNotAssignedHospitals() {

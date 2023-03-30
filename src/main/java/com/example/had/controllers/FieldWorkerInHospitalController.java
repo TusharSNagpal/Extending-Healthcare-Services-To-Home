@@ -43,8 +43,15 @@ public class FieldWorkerInHospitalController {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.getFieldWorker(hospitalId));
     }
 
+
+
+    @DeleteMapping("/del/{fwId}")
+    public void deleteFieldWorker(@PathVariable("fwId") Integer fwId) {
+        this.fieldWorkerInHospitalService.deleteFieldWorker(fwId);
+
     @GetMapping("/phoneNo/{fwInHospId}")
     public ResponseEntity<String> getPhoneNo(@PathVariable Integer fwInHospId) {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.getPhoneNo(fwInHospId));
+
     }
 }

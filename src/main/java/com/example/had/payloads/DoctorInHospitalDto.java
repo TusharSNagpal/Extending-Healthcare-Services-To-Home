@@ -21,4 +21,6 @@ public class DoctorInHospitalDto {
     private Hospital hospital;
     private Doctor doctor;
     private String registrationDate;
+
 }
+
