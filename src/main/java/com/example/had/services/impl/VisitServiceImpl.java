@@ -1,16 +1,10 @@
 package com.example.had.services.impl;
 
-import com.example.had.entities.Doctor;
-import com.example.had.entities.Hospital;
-import com.example.had.entities.Patient;
-import com.example.had.entities.Visit;
+import com.example.had.entities.*;
 import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.HospitalDto;
 import com.example.had.payloads.VisitDto;
-import com.example.had.repositories.DoctorRepo;
-import com.example.had.repositories.HospitalRepo;
-import com.example.had.repositories.PatientRepo;
-import com.example.had.repositories.VisitRepo;
+import com.example.had.repositories.*;
 import com.example.had.services.VisitService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +26,9 @@ public class VisitServiceImpl implements VisitService {
 
     @Autowired
     PatientRepo patientRepo;
+
+    @Autowired
+    DoctorInHospitalRepo doctorInHospitalRepo;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -76,8 +73,11 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public VisitDto updateVisit(VisitDto visitDto, Integer visitId) {
         Visit visit = this.visitRepo.findById(visitId).orElseThrow(()->new ResourceNotFoundException("Visit", "Visit Id", visitId));
+        int docInHospId = visitDto.getDoctorInHospital().getDocInHospId();
+        DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(()->new ResourceNotFoundException("DoctorInHospital", "DocInHosp Id", docInHospId));
         visit.setPrescription(visitDto.getPrescription());
         visit.setSymptoms(visitDto.getSymptoms());
+        visit.setDoctorInHospital(doctorInHospital);
         Visit updatedVisit = visitRepo.save(visit);
         return this.modelMapper.map(updatedVisit, VisitDto.class);
     }

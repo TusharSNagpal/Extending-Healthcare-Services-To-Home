@@ -13,7 +13,7 @@ public interface FollowUpService {
 
     void updateFollowUpByDoctor(int followUpId);
 
-    List<FollowUpDto>  oldFollowUps(int visitId);
+    List<FollowUpDto>  oldFollowUps(int visitId,int followUpId);
 
     List<FollowUpDto> followUpsOfDoctor(int docInHospId);
 
