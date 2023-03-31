@@ -74,6 +74,12 @@ public class FollowUpServiceImpl implements FollowUpService {
     @Override
     public void updateFollowUpByFieldWorker(FollowUpDto followUpDto, int followUpId) {
         FollowUp followUp = this.followUpRepo.findById(followUpId).orElseThrow(()-> new ResourceNotFoundException("FollowUp","followUpId",followUpId));
+        int fwInHospId = followUpDto.getFieldWorkerInHospital().getFwInHospId();
+        FieldWorkerInHospital fieldWorkerInHospital = this.fieldWorkerInHospitalRepo.findById(fwInHospId).orElseThrow(()-> new ResourceNotFoundException("FollowUp","followUpId",followUpId));
+        int currNumOfTasksPerDay = fieldWorkerInHospital.getNumOfTasksPerDay();
+        currNumOfTasksPerDay--;
+        fieldWorkerInHospital.setNumOfTasksPerDay(currNumOfTasksPerDay);
+        this.fieldWorkerInHospitalRepo.save(fieldWorkerInHospital);
         followUp.setReviewByFieldWorker(followUpDto.getReviewByFieldWorker());
         followUp.setIsActive(2);
         followUp.setUrgentFlag(false);
@@ -88,9 +94,9 @@ public class FollowUpServiceImpl implements FollowUpService {
     }
 
     @Override
-    public List<FollowUpDto> oldFollowUps(int visitId) {
-        Visit visit = this.visitRepo.findById(visitId).orElseThrow(()->new ResourceNotFoundException("Visit","visit id",visitId));
-        List<FollowUp> followUps = this.followUpRepo.findAllByIsActiveAndVisit(0,visit);
+    public List<FollowUpDto> oldFollowUps(int visitId, int followUpId) {
+//        Visit visit = this.visitRepo.findById(visitId).orElseThrow(()->new ResourceNotFoundException("Visit","visit id",visitId));
+        List<FollowUp> followUps = this.followUpRepo.findAllByIdAndVisit(followUpId,visitId);
         List<FollowUpDto> followUpDtos = followUps.stream().map((followUp -> this.modelMapper.map(followUp, FollowUpDto.class))).collect(Collectors.toList());
         return followUpDtos;
 

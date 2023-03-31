@@ -18,7 +18,9 @@ public interface FollowUpRepo extends JpaRepository<FollowUp,Integer> {
 
     public List<FollowUp> findAllByIsActiveAndFieldWorkerInHospital(int IsActive, FieldWorkerInHospital fieldWorkerInHospital);
 
-    public List<FollowUp> findAllByIsActiveAndVisit(int isActive, Visit visit);
+//    @Query(value="SELECT * FROM follow_up WHERE is_active=0 and follow_ups_id!=:followUpId and visit_id in (SELECT visit_id FROM visits WHERE doctor_in_hospital=:docInHospId)",nativeQuery = true)
+    @Query(value="SELECT * FROM follow_up WHERE follow_ups_id!=:followUpId and visit_id=:visitId and is_active=0",nativeQuery = true)
+    public List<FollowUp> findAllByIdAndVisit(@Param("followUpId") int followUpId, @Param("visitId") int visitId);
 
     @Query(value="SELECT * FROM follow_up WHERE is_active=2 AND visit_id in (SELECT visit_id FROM visits WHERE doctor_in_hospital=:docInHospId)",nativeQuery = true)
     public List<FollowUp> findAllByVisits(@Param("docInHospId") int docInHospId);

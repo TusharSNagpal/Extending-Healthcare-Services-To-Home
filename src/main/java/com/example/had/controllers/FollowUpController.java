@@ -48,9 +48,9 @@ public class FollowUpController {
     }
 
     // GET OLD FOLLOWUPS OF A visitId
-    @GetMapping("/visit/{visitId}")
-    public ResponseEntity<List<FollowUpDto>> getOldFollowUps(@PathVariable int visitId){
-        return ResponseEntity.ok(this.followUpService.oldFollowUps(visitId));
+    @GetMapping("/visit/{visitId}/followUpId/{followUpId}")
+    public ResponseEntity<List<FollowUpDto>> getOldFollowUps(@PathVariable int visitId, @PathVariable int followUpId){
+        return ResponseEntity.ok(this.followUpService.oldFollowUps(visitId,followUpId));
     }
 
     // GET COMPLETED FOLLOWUPS BY FIELD WORKER (isActive=2)
