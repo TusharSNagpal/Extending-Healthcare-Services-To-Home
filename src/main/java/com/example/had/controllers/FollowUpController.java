@@ -65,10 +65,10 @@ public class FollowUpController {
         return ResponseEntity.ok(this.followUpService.remainingFollowUps(hospitalId));
     }
 
-    // ASSIGN FIELD WORKER TO FOLLOWUP
-    @PutMapping("/{followUpId}/fwInHosp/{fwInHospId}")
-    public ResponseEntity<ApiResponse> assignFieldWorkerToFollowUp(@PathVariable Integer followUpId, @PathVariable Integer fwInHospId) {
-        this.followUpService.assignFieldWorkerToFollowUp(followUpId,fwInHospId);
+    // UPDATE FIELDWORKER AND VERIFICATION NUMBER IN FOLLOWUP
+    @PutMapping("/{followUpId}")
+    public ResponseEntity<ApiResponse> assignFieldWorkerToFollowUp(@PathVariable Integer followUpId, @RequestBody FollowUpDto followUpDto) {
+        this.followUpService.assignFieldWorkerToFollowUp(followUpId,followUpDto);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Follow-up updated successfully",true), HttpStatus.OK);
     }
 }

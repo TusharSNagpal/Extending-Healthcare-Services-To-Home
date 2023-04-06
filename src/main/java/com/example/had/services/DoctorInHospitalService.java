@@ -2,6 +2,7 @@ package com.example.had.services;
 
 import com.example.had.payloads.DoctorInHospitalDto;
 import com.example.had.payloads.FieldWorkerInHospitalDto;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface DoctorInHospitalService {
 
@@ -11,6 +12,7 @@ public interface DoctorInHospitalService {
     void registerDoctor(Integer docId, Integer hosId);
     void deleteDoctor(Integer docInHospId);
     String getPhoneNo(Integer docInHospId);
+
 
 }
 
