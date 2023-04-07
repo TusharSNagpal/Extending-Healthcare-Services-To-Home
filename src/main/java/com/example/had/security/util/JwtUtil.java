@@ -1,4 +1,4 @@
-package com.example.had.util;
+package com.example.had.security.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -62,3 +62,4 @@ public class JwtUtil {
         return encoder.encodeToString(bytes);
     }
 }
+

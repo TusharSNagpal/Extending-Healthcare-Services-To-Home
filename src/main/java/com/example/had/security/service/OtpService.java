@@ -1,5 +1,4 @@
-package com.example.had.jwtservices;
-
+package com.example.had.security.service;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -30,7 +29,7 @@ public class OtpService {
     }
 
     public String generateOtp(String phoneNo){
-        Twilio.init("AC8a446114f4673e85a4d0969bef749872", "26fec6cfd6dafcc9c1ba6cf218a32631");
+//        Twilio.init("AC8a446114f4673e85a4d0969bef749872", "26fec6cfd6dafcc9c1ba6cf218a32631");
 //        PhoneNumber to = new PhoneNumber(phoneNo);
 //        PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber());
         String otp = getRandomOTP(phoneNo);

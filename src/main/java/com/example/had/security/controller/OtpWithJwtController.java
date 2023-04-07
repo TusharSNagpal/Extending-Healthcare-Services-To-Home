@@ -1,20 +1,13 @@
-package com.example.had.controllers.OTP;
-
-//import com.example.had.jwtservices.UserDetailsService;
-import com.example.had.entities.DoctorInHospital;
-//import com.example.had.jwtservices.DoctorDetailsService;
-import com.example.had.jwtservices.SupervisorDetailsService;
-import com.example.had.payloads.AuthRequestDto;
-import com.example.had.jwtservices.OtpService;
-import com.example.had.services.DoctorInHospitalService;
-import com.example.had.services.FieldWorkerInHospitalService;
-import com.example.had.services.SupervisorService;
-import com.example.had.util.JwtUtil;
+package com.example.had.security.controller;
+import com.example.had.security.model.AuthRequest;
+import com.example.had.security.service.OtpService;
+import com.example.had.security.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -28,17 +21,8 @@ public class OtpWithJwtController {
     @Autowired
     private JwtUtil jwtTokenUtil;
     @Autowired
-    private SupervisorDetailsService supervisorDetailsService;
+    UserDetailsService userDetailsService;
 
-    @Autowired
-    private FieldWorkerInHospitalService fieldWorkerInHospitalService;
-
-//    @Autowired
-//    private DoctorDetailsService doctorDetailsService;
-
-
-//    @Autowired
-//    private UserDetailsService userDetailsService;
     @Autowired
     private OtpService otpService;
 
@@ -67,8 +51,8 @@ public class OtpWithJwtController {
         return returnMap;
     }
 
-    @RequestMapping(value = "verifyOtp/{role}",method = RequestMethod.POST)
-    public Map<String,Object> verifyOtp(@RequestBody AuthRequestDto authenticationRequest, @PathVariable String role){
+    @RequestMapping(value = "verifyOtp",method = RequestMethod.POST)
+    public Map<String,Object> verifyOtp(@RequestBody AuthRequest authenticationRequest){
 //        System.out.println(role);
         Map<String,Object> returnMap=new HashMap<>();
         try{
@@ -77,7 +61,7 @@ public class OtpWithJwtController {
             System.out.println(authenticationRequest.getOtp());
             if(authenticationRequest.getOtp().equals(otpService.getCacheOtp(authenticationRequest.getPhoneNo()))){
 //                System.out.println("here");
-                String jwtToken = createAuthenticationToken(authenticationRequest,role);
+                String jwtToken = createAuthenticationToken(authenticationRequest);
                 returnMap.put("status","success");
                 returnMap.put("message","Otp verified successfully");
                 returnMap.put("jwt",jwtToken);
@@ -96,7 +80,7 @@ public class OtpWithJwtController {
     }
 
     //create auth token
-    public String createAuthenticationToken(AuthRequestDto authenticationRequest ,String role) throws Exception {
+    public String createAuthenticationToken(AuthRequest authenticationRequest) throws Exception {
         try {
 //            System.out.println(authenticationRequest.getPhoneNo());
             authenticationManager.authenticate(
@@ -109,25 +93,10 @@ public class OtpWithJwtController {
             throw new Exception("Incorrect username or password", e);
         }
         UserDetails userDetails = null;
-        if(role.equals("supervisor")){
-            System.out.println("in supervisor controller");
-            userDetails = supervisorDetailsService.loadUserByUsername(authenticationRequest.getPhoneNo());
-        }
-//        if(role.equals("fieldworker")){
-//            System.out.println("in fieldworker controller");
-//            userDetails = fieldWorkerInHospitalService.loadUserByUsername(authenticationRequest.getPhoneNo());
-//        }
-//        if(role.equals("doctor")){
-//            System.out.println("in doctor controller");
-////            userDetails = supervisorDetailsService.loadUserByUsername(authenticationRequest.getPhoneNo());
-//            userDetails = doctorDetailsService.loadUserByUsername(authenticationRequest.getPhoneNo());
-//        }
-//        if(role.equals("admin")){
-//            // implementation incoming
-//        }
+        userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getPhoneNo());
+
 
 
         return jwtTokenUtil.generateToken(userDetails);
     }
 }
-
