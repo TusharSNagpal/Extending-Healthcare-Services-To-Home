@@ -7,6 +7,7 @@ import com.example.had.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,7 @@ public class PatientController {
     private PatientService patientService;
 
     //PATIENT REGISTER:
+    @PreAuthorize("userDetailsService.")
     @PostMapping("/")
     public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto) {
         PatientDto patientDto1 = this.patientService.createPatient(patientDto);

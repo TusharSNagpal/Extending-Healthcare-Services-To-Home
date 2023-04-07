@@ -9,7 +9,7 @@ import com.example.had.repositories.HospitalRepo;
 import com.example.had.services.FieldWorkerInHospitalService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -106,19 +106,19 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
         this.fieldWorkerInHospitalRepo.delete(fieldWorkerInHospital);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String phoneNo) {
-
-        FieldWorkerInHospital fieldWorkerInHospital = fieldWorkerInHospitalRepo.findByPhoneNo(phoneNo);
-        if(fieldWorkerInHospital==null){
-            fieldWorkerInHospital = new FieldWorkerInHospital();
-            fieldWorkerInHospital.getFieldWorker().setPhoneNo(phoneNo);
-            fieldWorkerInHospitalRepo.save(fieldWorkerInHospital);
-        }
-        return new org.springframework.security.core.userdetails.User(fieldWorkerInHospital.getFieldWorker().getPhoneNo(), "",
-                new ArrayList<>());
-
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String phoneNo) {
+//
+//        FieldWorkerInHospital fieldWorkerInHospital = fieldWorkerInHospitalRepo.findByPhoneNo(phoneNo);
+//        if(fieldWorkerInHospital==null){
+//            fieldWorkerInHospital = new FieldWorkerInHospital();
+//            fieldWorkerInHospital.getFieldWorker().setPhoneNo(phoneNo);
+//            fieldWorkerInHospitalRepo.save(fieldWorkerInHospital);
+//        }
+//        return new org.springframework.security.core.userdetails.User(fieldWorkerInHospital.getFieldWorker().getPhoneNo(), "",
+//                new ArrayList<>());
+//
+//    }
 
 
 }

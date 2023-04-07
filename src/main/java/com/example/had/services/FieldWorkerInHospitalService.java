@@ -3,7 +3,7 @@ package com.example.had.services;
 import com.example.had.entities.FieldWorkerInHospital;
 import com.example.had.payloads.DoctorDto;
 import com.example.had.payloads.FieldWorkerInHospitalDto;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public interface FieldWorkerInHospitalService {
     String getPhoneNo(Integer fwInHospId);
     void deleteFieldWorker(Integer fwId);
 
-    public UserDetails loadUserByUsername(String phoneNo);
+//    public UserDetails loadUserByUsername(String phoneNo);
 
 
 

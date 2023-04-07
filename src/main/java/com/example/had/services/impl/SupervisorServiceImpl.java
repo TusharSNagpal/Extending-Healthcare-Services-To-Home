@@ -13,15 +13,12 @@ import com.example.had.payloads.FieldWorkerDto;
 import com.example.had.payloads.FieldWorkerInHospitalDto;
 import com.example.had.payloads.HospitalDto;
 import com.example.had.payloads.SupervisorDto;
-import com.example.had.repositories.FieldWorkerInHospitalRepo;
-import com.example.had.repositories.FieldWorkerRepo;
-import com.example.had.repositories.HospitalRepo;
-import com.example.had.repositories.SupervisorRepo;
+import com.example.had.repositories.*;
 import com.example.had.services.SupervisorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -47,6 +44,9 @@ public class SupervisorServiceImpl implements SupervisorService {
     @Autowired
     private FieldWorkerInHospitalRepo fieldWorkerInHospitalRepo;
 
+    @Autowired
+    private ActorsRepo actorsRepo;
+
 
     @Override
     public SupervisorDto createSupervisor(SupervisorDto supervisorDto) {
@@ -60,6 +60,8 @@ public class SupervisorServiceImpl implements SupervisorService {
         supervisor.setRegistrationDate(currentDate);
         supervisor.setDob(supervisorDto.getDob().substring(0, 10));
         Supervisor savedSupervisor = this.supervisorRepo.save(supervisor);
+        Actors actor = new Actors(savedSupervisor.getPhoneNo(), "supervisor");
+        this.actorsRepo.save(actor);
         return this.modelMapper.map(savedSupervisor, SupervisorDto.class);
     }
 

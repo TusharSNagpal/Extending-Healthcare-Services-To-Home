@@ -4,7 +4,7 @@ import com.example.had.entities.FieldWorkerInHospital;
 import com.example.had.payloads.FieldWorkerDto;
 import com.example.had.payloads.FieldWorkerInHospitalDto;
 import com.example.had.payloads.SupervisorDto;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 

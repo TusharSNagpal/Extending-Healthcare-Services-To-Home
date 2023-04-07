@@ -1,11 +1,14 @@
 package com.example.had.services.impl;
 
+import com.example.had.entities.Actors;
 import com.example.had.entities.FieldWorker;
 import com.example.had.entities.Patient;
 import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.FieldWorkerDto;
+import com.example.had.repositories.ActorsRepo;
 import com.example.had.repositories.FieldWorkerRepo;
 import com.example.had.services.FieldWorkerService;
+import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,9 @@ public class FieldWorkerServiceImpl implements FieldWorkerService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private ActorsRepo actorsRepo;
+
     @Override
     public FieldWorkerDto createFieldWorker(FieldWorkerDto fieldWorkerDto) {
         FieldWorker fieldWorker = this.modelMapper.map(fieldWorkerDto, FieldWorker.class);
@@ -33,6 +39,8 @@ public class FieldWorkerServiceImpl implements FieldWorkerService {
 //        fieldWorker.setNumOfTasksPerDay(10);
         fieldWorker.setDob(fieldWorkerDto.getDob().substring(0, 10));
         FieldWorker savedFieldWorker = this.fieldWorkerRepo.save(fieldWorker);
+        Actors actor = new Actors(savedFieldWorker.getPhoneNo(), "fieldWorker");
+        this.actorsRepo.save(actor);
         return this.modelMapper.map(savedFieldWorker, FieldWorkerDto.class);
     }
 

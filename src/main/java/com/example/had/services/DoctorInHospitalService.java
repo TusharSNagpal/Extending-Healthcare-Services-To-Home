@@ -2,7 +2,7 @@ package com.example.had.services;
 
 import com.example.had.payloads.DoctorInHospitalDto;
 import com.example.had.payloads.FieldWorkerInHospitalDto;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 public interface DoctorInHospitalService {
 
