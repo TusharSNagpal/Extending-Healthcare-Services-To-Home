@@ -30,6 +30,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private ActorsRepo actorsRepo;
 
+//    public String tokenRole;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
@@ -37,15 +39,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         final String authorizationHeader = request.getHeader("Authorization");
 
         String username = null;
-        String tokenRole = null;
         String jwt = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            tokenRole = authorizationHeader.substring(7, 12);
-            jwt = authorizationHeader.substring(13);
+//            this.tokenRole = authorizationHeader.substring(7, 12);
+            jwt = authorizationHeader.substring(7);
             username = jwtUtil.extractUsername(jwt);
-//            System.out.println(actor);
+//            if(this.tokenRole.equals("Super")) this.tokenRole = "supervisor";
+//            else if(this.tokenRole.equals("Field")) this.tokenRole = "fieldworker";
+//            else if(this.tokenRole.equals("Doctr")) this.tokenRole = "doctor";
+//            else if(this.tokenRole.equals("Admin")) this.tokenRole = "admin";
         }
+
+
 
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

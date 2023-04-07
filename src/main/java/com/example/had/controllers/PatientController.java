@@ -3,6 +3,7 @@ package com.example.had.controllers;
 //import com.example.had.payloads.ApiResponse;
 //import com.example.had.payloads.DoctorDto;
 import com.example.had.payloads.PatientDto;
+import com.example.had.repositories.ActorsRepo;
 import com.example.had.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,10 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
+    @Autowired
+    private ActorsRepo actorsRepo;
+
     //PATIENT REGISTER:
-    @PreAuthorize("userDetailsService.")
     @PostMapping("/")
     public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto) {
         PatientDto patientDto1 = this.patientService.createPatient(patientDto);
