@@ -22,12 +22,14 @@ public class PatientController {
     private ActorsRepo actorsRepo;
 
     //PATIENT REGISTER:
+    @PreAuthorize("hasAnyAuthority('supervisor')")
     @PostMapping("/")
     public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto) {
         PatientDto patientDto1 = this.patientService.createPatient(patientDto);
         return new ResponseEntity<>(patientDto1, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAnyAuthority('doctor')")
     @GetMapping("/{patientId}")
     public ResponseEntity<PatientDto> searchingPatient(@PathVariable int patientId){
         return ResponseEntity.ok(this.patientService.searchPatient(patientId));
@@ -37,7 +39,7 @@ public class PatientController {
     public ResponseEntity<String> getPhoneNo(@PathVariable Integer patientId) {
         return ResponseEntity.ok(this.patientService.getPhoneNo(patientId));
     }
-
+    @PreAuthorize("hasAnyAuthority('supervisor')")
     @PutMapping("/{patientId}")
     public ResponseEntity<PatientDto> updatePatient(@RequestBody PatientDto patientDto, @PathVariable Integer patientId) {
         PatientDto updatedPatient = this.patientService.updatePatient(patientDto, patientId);
