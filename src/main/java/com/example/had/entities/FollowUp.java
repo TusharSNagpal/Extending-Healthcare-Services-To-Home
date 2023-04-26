@@ -33,6 +33,9 @@ public class FollowUp {
     @Column
     private String reviewByFieldWorker;
 
+    @Column
+    private String verificationNumber;
+
     @ManyToOne
     @JoinColumn(name="visitId")
     private Visit visit;

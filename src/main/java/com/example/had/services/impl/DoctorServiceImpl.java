@@ -1,9 +1,11 @@
 package com.example.had.services.impl;
 
+import com.example.had.entities.Actors;
 import com.example.had.entities.Doctor;
 import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.DoctorDto;
 import com.example.had.payloads.DoctorDto;
+import com.example.had.repositories.ActorsRepo;
 import com.example.had.repositories.DoctorRepo;
 import com.example.had.services.DoctorService;
 import org.modelmapper.ModelMapper;
@@ -21,6 +23,9 @@ public class DoctorServiceImpl implements DoctorService {
     private DoctorRepo doctorRepo;
 
     @Autowired
+    private ActorsRepo actorsRepo;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -32,6 +37,8 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setRegistrationDate(currentDate);
         doctor.setDob(doctorDto.getDob().substring(0, 10));
         Doctor savedDoctor = this.doctorRepo.save(doctor);
+        Actors actor = new Actors(savedDoctor.getPhoneNo(), "doctor");
+        this.actorsRepo.save(actor);
         return this.modelMapper.map(savedDoctor, DoctorDto.class);
     }
 

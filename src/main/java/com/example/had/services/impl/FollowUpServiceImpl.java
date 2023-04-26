@@ -74,6 +74,7 @@ public class FollowUpServiceImpl implements FollowUpService {
     @Override
     public void updateFollowUpByFieldWorker(FollowUpDto followUpDto, int followUpId) {
         FollowUp followUp = this.followUpRepo.findById(followUpId).orElseThrow(()-> new ResourceNotFoundException("FollowUp","followUpId",followUpId));
+
         int fwInHospId = followUp.getFieldWorkerInHospital().getFwInHospId();
         FieldWorkerInHospital fieldWorkerInHospital = this.fieldWorkerInHospitalRepo.findById(fwInHospId).orElseThrow(()-> new ResourceNotFoundException("FollowUp","followUpId",followUpId));
         int currNumOfTasksPerDay = fieldWorkerInHospital.getNumOfTasksPerDay();
@@ -123,10 +124,13 @@ public class FollowUpServiceImpl implements FollowUpService {
     }
 
     @Override
-    public void assignFieldWorkerToFollowUp(int followUpId, int fwInHospId) {
+    public void assignFieldWorkerToFollowUp(int followUpId, FollowUpDto followUpDto) {
         FollowUp followUp = this.followUpRepo.findById(followUpId).orElseThrow(()-> new ResourceNotFoundException("FollowUp","followUpId",followUpId));
+        int fwInHospId = followUpDto.getFieldWorkerInHospital().getFwInHospId();
+
         FieldWorkerInHospital fieldWorkerInHospital = this.fieldWorkerInHospitalRepo.findById(fwInHospId).orElseThrow(()->new ResourceNotFoundException("FieldWorkerInHospital","fwInHospId",fwInHospId));
         followUp.setFieldWorkerInHospital(fieldWorkerInHospital);
+        followUp.setVerificationNumber(followUpDto.getVerificationNumber());
         this.followUpRepo.save(followUp);
     }
 }
