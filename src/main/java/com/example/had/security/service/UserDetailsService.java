@@ -1,13 +1,7 @@
 package com.example.had.security.service;
 
-import com.example.had.entities.Actors;
-import com.example.had.entities.Doctor;
-import com.example.had.entities.FieldWorker;
-import com.example.had.entities.Supervisor;
-import com.example.had.repositories.ActorsRepo;
-import com.example.had.repositories.DoctorRepo;
-import com.example.had.repositories.FieldWorkerRepo;
-import com.example.had.repositories.SupervisorRepo;
+import com.example.had.entities.*;
+import com.example.had.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +12,9 @@ import java.util.ArrayList;
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
     @Autowired
     private ActorsRepo actorsRepo;
+
+    @Autowired
+    private AdminRepo adminRepo;
 
     @Autowired
     private SupervisorRepo supervisorRepo;
@@ -32,7 +29,12 @@ public class UserDetailsService implements org.springframework.security.core.use
     public UserDetails loadUserByUsername(String phoneNo) throws UsernameNotFoundException {
         Actors actor = actorsRepo.findActorsByPhoneNo(phoneNo);
         String role = actor.getRole();
-        if(role.equals("supervisor")) {
+        if(role.equals("admin")) {
+            Admin admin = adminRepo.findAdminByPhoneNo(phoneNo);
+            return new org.springframework.security.core.userdetails.User(admin.getPhoneNo(), "",
+                    new ArrayList<>());
+        }
+        else if(role.equals("supervisor")) {
             Supervisor supervisor = supervisorRepo.findSupervisorByPhoneNo(phoneNo);
             return new org.springframework.security.core.userdetails.User(supervisor.getPhoneNo(), "",
                     new ArrayList<>());
