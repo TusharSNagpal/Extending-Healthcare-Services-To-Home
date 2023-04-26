@@ -29,7 +29,7 @@ public class PatientController {
         return new ResponseEntity<>(patientDto1, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyAuthority('doctor')")
+    @PreAuthorize("hasAnyAuthority('supervisor', 'doctor')")
     @GetMapping("/{patientId}")
     public ResponseEntity<PatientDto> searchingPatient(@PathVariable int patientId){
         return ResponseEntity.ok(this.patientService.searchPatient(patientId));

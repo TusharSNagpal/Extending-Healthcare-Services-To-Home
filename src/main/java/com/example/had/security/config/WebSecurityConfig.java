@@ -45,6 +45,10 @@ public class WebSecurityConfig{
 
     private static final String[] WHITELIST = {
             "/api/client/auth/**",
+            "/api/supervisors/phoneNo/**",
+            "/api/doctorInHospital/phoneNo/**",
+            "/api/client/auth/verifyOtp"
+
     };
 
 }

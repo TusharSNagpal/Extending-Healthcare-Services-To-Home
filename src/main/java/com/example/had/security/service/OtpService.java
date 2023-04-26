@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -43,12 +44,23 @@ public class OtpService {
         String otp =  new DecimalFormat("000000")
                 .format(new Random().nextInt(999999));
         otpCache.put(phoneNo,otp);
+        try {
+            System.out.println(phoneNo);
+
+            System.out.println(otpCache.get(phoneNo));
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
         return otp;
     }
     //get saved otp
-    public String getCacheOtp(String key){
+    public String getCacheOtp(String phoneNo){
+//        System.out.println(key);
+//        System.out.println(otpCache);
+        System.out.println(otpCache.asMap());
         try{
-            return otpCache.get(key);
+//            System.out.println(otpCache.get(key));
+            return otpCache.get(phoneNo);
         }catch (Exception e){
             return "";
         }

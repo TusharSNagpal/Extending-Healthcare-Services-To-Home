@@ -57,14 +57,16 @@ public class OtpWithJwtController {
         Map<String,Object> returnMap=new HashMap<>();
         try{
             //verify otp
-            System.out.println(otpService.getCacheOtp(authenticationRequest.getPhoneNo()));
-            System.out.println(authenticationRequest.getOtp());
+//            System.out.println(authenticationRequest.getPhoneNo());
+//            System.out.println(otpService.getCacheOtp(authenticationRequest.getPhoneNo()));
+//            System.out.println(authenticationRequest.getOtp());
             if(authenticationRequest.getOtp().equals(otpService.getCacheOtp(authenticationRequest.getPhoneNo()))){
 //                System.out.println("here");
                 String jwtToken = createAuthenticationToken(authenticationRequest);
                 returnMap.put("status","success");
                 returnMap.put("message","Otp verified successfully");
                 returnMap.put("jwt",jwtToken);
+                System.out.println(jwtToken);
                 otpService.clearOtp(authenticationRequest.getPhoneNo());
             }else{
                 returnMap.put("status","success");
