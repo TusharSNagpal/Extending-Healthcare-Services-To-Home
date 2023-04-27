@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/doctorInHospital")
 @CrossOrigin(origins = "*")
@@ -50,6 +53,11 @@ public class DoctorInHospitalController {
     @DeleteMapping("/del/{doctorInHospId}")
     public void deleteDoctor(@PathVariable("doctorInHospId") Integer doctorInHospId) {
         this.doctorInHospitalService.deleteDoctor(doctorInHospId);
+    }
+
+    @GetMapping("/getAllDocInHosp/{hospitalId}")
+    public List<DoctorInHospitalDto> getAllDoctorsOfHospital(@PathVariable("hospitalId") Integer hospitalId){
+        return this.doctorInHospitalService.getAllDoctorsOfHospital(hospitalId);
     }
 
 

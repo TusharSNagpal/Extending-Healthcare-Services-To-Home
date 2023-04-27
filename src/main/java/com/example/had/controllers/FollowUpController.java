@@ -66,9 +66,9 @@ public class FollowUpController {
     }
 
     // ASSIGN FIELD WORKER TO FOLLOWUP
-    @PutMapping("/{followUpId}/fwInHosp/{fwInHospId}")
-    public ResponseEntity<ApiResponse> assignFieldWorkerToFollowUp(@PathVariable Integer followUpId, @PathVariable Integer fwInHospId) {
-        this.followUpService.assignFieldWorkerToFollowUp(followUpId,fwInHospId);
+    @PutMapping("/{followUpId}")
+    public ResponseEntity<ApiResponse> assignFieldWorkerToFollowUp(@PathVariable Integer followUpId, @RequestBody FollowUpDto followUpDto) {
+        this.followUpService.assignFieldWorkerToFollowUp(followUpId,followUpDto);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Follow-up updated successfully",true), HttpStatus.OK);
     }
 }

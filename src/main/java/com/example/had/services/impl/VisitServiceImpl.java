@@ -2,6 +2,7 @@ package com.example.had.services.impl;
 
 import com.example.had.entities.*;
 import com.example.had.exceptions.ResourceNotFoundException;
+import com.example.had.payloads.FollowUpDto;
 import com.example.had.payloads.HospitalDto;
 import com.example.had.payloads.VisitDto;
 import com.example.had.repositories.*;
@@ -38,11 +39,14 @@ public class VisitServiceImpl implements VisitService {
         Visit visit  = this.modelMapper.map(visitDto, Visit.class);
         int hospitalId = visit.getHospital().getHospitalId();
         int patientId = visit.getPatient().getPatientId();
-        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(()->new ResourceNotFoundException("Hospital","hospital id",hospitalId));;
-        Patient patient = this.patientRepo.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient","patient id",patientId));;
+        int docInHospId = visit.getDoctorInHospital().getDocInHospId();
+        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(()->new ResourceNotFoundException("Hospital","hospital id",hospitalId));
+        Patient patient = this.patientRepo.findById(patientId).orElseThrow(()->new ResourceNotFoundException("Patient","patient id",patientId));
+        DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(()->new ResourceNotFoundException("DoctorInHospital", "DocInHosp Id", docInHospId));
         visit.setIsActive(1);
         visit.setHospital(hospital);
         visit.setPatient(patient);
+        visit.setDoctorInHospital(doctorInHospital);
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         visit.setVisitDate(formatter.format(date));
@@ -50,13 +54,16 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<VisitDto> activeVisits(int hospitalId) {
+    public List<VisitDto> activeVisits(int hospitalId, int docInHospId) {
 //        List<Visit> activeVisits = this.visitRepo.findActiveVisits(hospitalId);
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate = formatter.format(date);
-        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(()->new ResourceNotFoundException("Hospital","hospital id",hospitalId));;
-        List<Visit> activeVisits = this.visitRepo.findAllByIsActiveAndVisitDateAndHospital(1,currentDate,hospital);
+        System.out.println(currentDate);
+        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(()->new ResourceNotFoundException("Hospital","hospital id",hospitalId));
+        DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(()->new ResourceNotFoundException("DoctorInHospital", "DocInHosp Id", docInHospId));
+
+        List<Visit> activeVisits = this.visitRepo.findAllByIsActiveAndVisitDateAndHospitalAndDoctorInHospital(1,currentDate,hospital,doctorInHospital);
         List<VisitDto> activeVisitsDtos = activeVisits.stream().map((activeVisit -> this.modelMapper.map(activeVisit, VisitDto.class))).collect(Collectors.toList());
         return activeVisitsDtos;
     }
@@ -74,11 +81,20 @@ public class VisitServiceImpl implements VisitService {
     public VisitDto updateVisit(VisitDto visitDto, Integer visitId) {
         Visit visit = this.visitRepo.findById(visitId).orElseThrow(()->new ResourceNotFoundException("Visit", "Visit Id", visitId));
         int docInHospId = visitDto.getDoctorInHospital().getDocInHospId();
-        DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(()->new ResourceNotFoundException("DoctorInHospital", "DocInHosp Id", docInHospId));
+//        DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(()->new ResourceNotFoundException("DoctorInHospital", "DocInHosp Id", docInHospId));
         visit.setPrescription(visitDto.getPrescription());
         visit.setSymptoms(visitDto.getSymptoms());
-        visit.setDoctorInHospital(doctorInHospital);
+//        visit.setDoctorInHospital(doctorInHospital);
         Visit updatedVisit = visitRepo.save(visit);
         return this.modelMapper.map(updatedVisit, VisitDto.class);
+    }
+
+    @Override
+    public List<VisitDto> oldVisits(int visitId, int patientId) {
+//        Visit visit = this.visitRepo.findById(visitId).orElseThrow(()->new ResourceNotFoundException("Visit","visit id",visitId));
+        List<Visit> visits = this.visitRepo.findAllByIdAndPatient(visitId,patientId);
+        List<VisitDto> VisitDtos = visits.stream().map((visit -> this.modelMapper.map(visit, VisitDto.class))).collect(Collectors.toList());
+        return VisitDtos;
+
     }
 }

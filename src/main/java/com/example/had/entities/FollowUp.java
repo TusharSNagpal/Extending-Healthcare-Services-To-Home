@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity(name="followUp")
 @Table(name="followUp")
@@ -22,9 +24,6 @@ public class FollowUp {
     private String followUpDate;
 
     @Column
-    private Boolean urgentFlag;
-
-    @Column
     private Integer isActive;
 
     @Column
@@ -32,6 +31,9 @@ public class FollowUp {
 
     @Column
     private String reviewByFieldWorker;
+
+    @Column
+    private String verificationNumber;
 
     @ManyToOne
     @JoinColumn(name="visitId")

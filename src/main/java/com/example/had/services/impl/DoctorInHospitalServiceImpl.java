@@ -4,6 +4,7 @@ import com.example.had.entities.*;
 import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.DoctorInHospitalDto;
 import com.example.had.payloads.FieldWorkerInHospitalDto;
+import com.example.had.payloads.VisitDto;
 import com.example.had.repositories.*;
 import com.example.had.services.DoctorInHospitalService;
 import org.modelmapper.ModelMapper;
@@ -92,6 +93,13 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
         this.doctorInHospitalRepo.delete(doctorInHospital);
     }
 
+    @Override
+    public List<DoctorInHospitalDto> getAllDoctorsOfHospital(Integer hospitalId) {
+        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "hospital", hospitalId));
+        List<DoctorInHospital> doctorInHospitals = this.doctorInHospitalRepo.getDoctorInHospitalByHospital(hospital);
+        List<DoctorInHospitalDto> doctorInHospitalDtos = doctorInHospitals.stream().map((doctorInHospital -> this.modelMapper.map(doctorInHospital, DoctorInHospitalDto.class))).collect(Collectors.toList());
+        return doctorInHospitalDtos;
 
+    }
 }
 

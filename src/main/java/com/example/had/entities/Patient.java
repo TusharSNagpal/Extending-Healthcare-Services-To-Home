@@ -30,7 +30,7 @@ public class Patient {
     private String address;
 
     @Column
-    private int pinCode;
+    private Integer pinCode;
 
     @Column
     private String gender;

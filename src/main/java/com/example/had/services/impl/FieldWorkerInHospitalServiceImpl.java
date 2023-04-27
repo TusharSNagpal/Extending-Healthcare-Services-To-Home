@@ -84,7 +84,7 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
     public List<FieldWorkerInHospitalDto> getFieldWorker(Integer hospitalId) {
 
 //        Hospital hospital = this.hospitalRepo.findById(hospitalId).orElseThrow(() -> new ResourceNotFoundException("Hospital", "Hospital Id", hospitalId));
-        List<FieldWorkerInHospital> fieldWorkerInHospitals= this.fieldWorkerInHospitalRepo.findAllByHospitalAAndNumOfTasksPerDay(hospitalId);
+        List<FieldWorkerInHospital> fieldWorkerInHospitals= this.fieldWorkerInHospitalRepo.findAllByHospitalAndNumOfTasksPerDay(hospitalId);
         List<FieldWorkerInHospitalDto> fieldWorkerInHospitalDtos = fieldWorkerInHospitals.stream().map(fieldWorkerInHospital -> this.modelMapper.map(fieldWorkerInHospital, FieldWorkerInHospitalDto.class)).collect(Collectors.toList());
         return fieldWorkerInHospitalDtos;
 
@@ -104,6 +104,7 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
         FieldWorkerInHospital fieldWorkerInHospital= this.fieldWorkerInHospitalRepo.findById(fwId).orElseThrow(() -> {
             return new ResourceNotFoundException("fieldWorker", "fwId", fwId);
         });
+         System.out.println(fwId);
         this.fieldWorkerInHospitalRepo.delete(fieldWorkerInHospital);
     }
 
