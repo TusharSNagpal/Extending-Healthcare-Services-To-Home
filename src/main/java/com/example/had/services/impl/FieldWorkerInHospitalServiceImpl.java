@@ -1,9 +1,6 @@
 package com.example.had.services.impl;
 
-import com.example.had.entities.DoctorInHospital;
-import com.example.had.entities.FieldWorker;
-import com.example.had.entities.FieldWorkerInHospital;
-import com.example.had.entities.Hospital;
+import com.example.had.entities.*;
 import com.example.had.exceptions.ResourceNotFoundException;
 import com.example.had.payloads.FieldWorkerInHospitalDto;
 import com.example.had.repositories.FieldWorkerInHospitalRepo;
@@ -12,15 +9,17 @@ import com.example.had.repositories.HospitalRepo;
 import com.example.had.services.FieldWorkerInHospitalService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalService {
+public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalService{
     @Autowired
     private FieldWorkerInHospitalRepo fieldWorkerInHospitalRepo;
     @Autowired
@@ -107,6 +106,20 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
          System.out.println(fwId);
         this.fieldWorkerInHospitalRepo.delete(fieldWorkerInHospital);
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String phoneNo) {
+//
+//        FieldWorkerInHospital fieldWorkerInHospital = fieldWorkerInHospitalRepo.findByPhoneNo(phoneNo);
+//        if(fieldWorkerInHospital==null){
+//            fieldWorkerInHospital = new FieldWorkerInHospital();
+//            fieldWorkerInHospital.getFieldWorker().setPhoneNo(phoneNo);
+//            fieldWorkerInHospitalRepo.save(fieldWorkerInHospital);
+//        }
+//        return new org.springframework.security.core.userdetails.User(fieldWorkerInHospital.getFieldWorker().getPhoneNo(), "",
+//                new ArrayList<>());
+//
+//    }
 
 
 }

@@ -74,6 +74,7 @@ public class FollowUpServiceImpl implements FollowUpService {
     @Override
     public void updateFollowUpByFieldWorker(FollowUpDto followUpDto, int followUpId) {
         FollowUp followUp = this.followUpRepo.findById(followUpId).orElseThrow(()-> new ResourceNotFoundException("FollowUp","followUpId",followUpId));
+
         int fwInHospId = followUp.getFieldWorkerInHospital().getFwInHospId();
         FieldWorkerInHospital fieldWorkerInHospital = this.fieldWorkerInHospitalRepo.findById(fwInHospId).orElseThrow(()-> new ResourceNotFoundException("FollowUp","followUpId",followUpId));
         int currNumOfTasksPerDay = fieldWorkerInHospital.getNumOfTasksPerDay();

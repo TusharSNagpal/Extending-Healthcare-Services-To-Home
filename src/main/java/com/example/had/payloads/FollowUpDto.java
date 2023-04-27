@@ -29,5 +29,7 @@ public class FollowUpDto {
 
     private Visit visit;
 
+    private String verificationNumber;
+
     private FieldWorkerInHospital fieldWorkerInHospital;
 }

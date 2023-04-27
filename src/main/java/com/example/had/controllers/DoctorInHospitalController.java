@@ -11,6 +11,7 @@ import com.example.had.services.FieldWorkerInHospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class DoctorInHospitalController {
     @Autowired
     DoctorService doctorService;
 
+    @PreAuthorize("hasAnyAuthority('supervisor')")
     @PutMapping("/{docInHospId}")
     public ResponseEntity<DoctorInHospitalDto> updateDoctorInHospital(@RequestBody DoctorInHospitalDto doctorInHospitalDto, @PathVariable Integer docInHospId) {
         DoctorInHospitalDto updatedDoctorInHospital = this.doctorInHospitalService.updateDoctorInHospital(doctorInHospitalDto,docInHospId);
@@ -38,6 +40,7 @@ public class DoctorInHospitalController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('supervisor')")
     @PostMapping("/docInHosp/{docInHospId}/hospital/{hospitalId}")
     //public registerFieldWorker(@PathVariable Integer fwInHosp,@PathVariable Integer hospitalId) ;
     public ResponseEntity<ApiResponse>  registerDoctor(@PathVariable Integer docInHospId, @PathVariable Integer hospitalId){
@@ -50,6 +53,7 @@ public class DoctorInHospitalController {
         return ResponseEntity.ok(this.doctorInHospitalService.getPhoneNo(docInHospId));
     }
 
+    @PreAuthorize("hasAnyAuthority('supervisor')")
     @DeleteMapping("/del/{doctorInHospId}")
     public void deleteDoctor(@PathVariable("doctorInHospId") Integer doctorInHospId) {
         this.doctorInHospitalService.deleteDoctor(doctorInHospId);

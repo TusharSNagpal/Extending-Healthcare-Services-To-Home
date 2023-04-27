@@ -8,6 +8,7 @@ import com.example.had.services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class VisitController {
     private VisitService visitService;
 
     // POST - create visit
+    @PreAuthorize("hasAnyAuthority('supervisor')")
     @PostMapping("/")
     public ResponseEntity<ApiResponse> createVisit(@RequestBody VisitDto visitDto){
 //        System.out.println(visitDto.);

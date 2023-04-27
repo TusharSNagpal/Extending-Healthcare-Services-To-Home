@@ -9,9 +9,11 @@ import com.example.had.repositories.*;
 import com.example.had.services.DoctorInHospitalService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -100,6 +102,5 @@ public class DoctorInHospitalServiceImpl implements DoctorInHospitalService{
         List<DoctorInHospitalDto> doctorInHospitalDtos = doctorInHospitals.stream().map((doctorInHospital -> this.modelMapper.map(doctorInHospital, DoctorInHospitalDto.class))).collect(Collectors.toList());
         return doctorInHospitalDtos;
 
-    }
 }
 

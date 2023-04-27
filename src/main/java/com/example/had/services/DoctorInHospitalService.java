@@ -2,6 +2,7 @@ package com.example.had.services;
 
 import com.example.had.payloads.DoctorInHospitalDto;
 import com.example.had.payloads.FieldWorkerInHospitalDto;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public interface DoctorInHospitalService {
     String getPhoneNo(Integer docInHospId);
 
     List<DoctorInHospitalDto> getAllDoctorsOfHospital(Integer hospitalId);
+
 
 }
 
