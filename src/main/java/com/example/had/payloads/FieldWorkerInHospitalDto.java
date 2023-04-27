@@ -25,5 +25,5 @@ public class FieldWorkerInHospitalDto{
 
     private FieldWorker fieldWorker;
     private String registrationDate;
-    private int numOfTasksPerDay;
+    private int numOfTasksAssignedPerDay;
 }

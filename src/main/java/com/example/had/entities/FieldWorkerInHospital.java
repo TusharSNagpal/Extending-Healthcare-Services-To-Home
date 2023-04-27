@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,8 +33,13 @@ public class FieldWorkerInHospital {
     private FieldWorker fieldWorker;
 
     @Column
-    private int numOfTasksPerDay;
+    private int numOfTasksAssignedPerDay;
 
     @Column
     private String registrationDate;
+
+    @OneToMany
+    @JoinColumn(name="followUpsId")
+    private List<FollowUp> followUpList;
+
 }

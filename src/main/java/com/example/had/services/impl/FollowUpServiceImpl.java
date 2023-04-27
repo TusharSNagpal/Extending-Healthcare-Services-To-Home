@@ -133,4 +133,5 @@ public class FollowUpServiceImpl implements FollowUpService {
         followUp.setVerificationNumber(followUpDto.getVerificationNumber());
         this.followUpRepo.save(followUp);
     }
+
 }

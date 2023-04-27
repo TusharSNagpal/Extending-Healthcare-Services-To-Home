@@ -20,4 +20,5 @@ public interface FollowUpService {
     List<FollowUpDto> remainingFollowUps(int hospitalId);
 
     void assignFieldWorkerToFollowUp(int followUpId, FollowUpDto followUpDto);
+
 }

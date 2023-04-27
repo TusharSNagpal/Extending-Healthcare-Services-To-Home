@@ -2,6 +2,7 @@ package com.example.had.controllers;
 
 import com.example.had.payloads.ApiResponse;
 //import com.example.had.payloads.HospitalDto;
+import com.example.had.payloads.FollowUpDto;
 import com.example.had.payloads.VisitDto;
 import com.example.had.services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,9 @@ public class VisitController {
         return new ResponseEntity<ApiResponse>(new ApiResponse("Visit created successfully",true), HttpStatus.OK);
     }
 
-    @GetMapping("/activeVisits/hospital/{hospitalId}")
-    public ResponseEntity<List<VisitDto>> getActiveVisits(@PathVariable int hospitalId){
-        return ResponseEntity.ok(this.visitService.activeVisits(hospitalId));
+    @GetMapping("/activeVisits/hospital/{hospitalId}/docInHosp/{docInHospId}")
+    public ResponseEntity<List<VisitDto>> getActiveVisits(@PathVariable int hospitalId, @PathVariable int docInHospId){
+        return ResponseEntity.ok(this.visitService.activeVisits(hospitalId,docInHospId));
     }
 
     @PutMapping("/{visitId}")
@@ -43,5 +44,11 @@ public class VisitController {
     public ResponseEntity<VisitDto> updateVisit(@RequestBody VisitDto visitDto, @PathVariable Integer visitId) {
         VisitDto updatedVisit = this.visitService.updateVisit(visitDto, visitId);
         return ResponseEntity.ok(updatedVisit);
+    }
+
+    // GET OLD VISITS OF A PATIENT
+    @GetMapping("/{visitId}/patient/{patientId}")
+    public ResponseEntity<List<VisitDto>> getOldFollowUps(@PathVariable int visitId, @PathVariable int patientId){
+        return ResponseEntity.ok(this.visitService.oldVisits(visitId,patientId));
     }
 }

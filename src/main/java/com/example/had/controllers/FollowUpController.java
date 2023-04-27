@@ -71,7 +71,7 @@ public class FollowUpController {
         return ResponseEntity.ok(this.followUpService.remainingFollowUps(hospitalId));
     }
 
-    // UPDATE FIELDWORKER AND VERIFICATION NUMBER IN FOLLOWUP
+
     @PreAuthorize("hasAnyAuthority('supervisor')")
     @PutMapping("/{followUpId}")
     public ResponseEntity<ApiResponse> assignFieldWorkerToFollowUp(@PathVariable Integer followUpId, @RequestBody FollowUpDto followUpDto) {
