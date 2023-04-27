@@ -47,7 +47,7 @@ public class FieldWorkerInHospitalServiceImpl implements FieldWorkerInHospitalSe
         });
         fieldWorkerInHospital.setFieldWorker(fieldWorker);
         fieldWorkerInHospital.setHospital(hospital);
-        fieldWorkerInHospital.setNumOfTasksPerDay(fieldWorkerInHospitalDto.getNumOfTasksPerDay());
+        fieldWorkerInHospital.setNumOfTasksAssignedPerDay(fieldWorkerInHospitalDto.getNumOfTasksAssignedPerDay());
         //fieldWorkerInHospital.setRegistrationDate(fieldWorkerInHospitalDto.getRegistrationDate());
        // fieldWorkerInHospital.setFwInHosp(fieldWorkerInHospitalDto.getFwInHosp());
 
