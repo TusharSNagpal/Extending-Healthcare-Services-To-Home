@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 package com.example.had.services.impl;
 
 import com.example.had.entities.*;
@@ -110,7 +103,7 @@ public class SupervisorServiceImpl implements SupervisorService {
     @Override
     public String getPhoneNo(Integer sId) {
         Supervisor supervisor = this.supervisorRepo.findById(sId).orElseThrow(() -> {
-            return new ResourceNotFoundException("patient", "patientId", sId);
+            return new ResourceNotFoundException("Supervisor", "supervisortId", sId);
         });
         String phoneNo = supervisor.getPhoneNo();
         return phoneNo;
