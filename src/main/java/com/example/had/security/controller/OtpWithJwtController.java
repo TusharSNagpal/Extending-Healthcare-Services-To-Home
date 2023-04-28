@@ -15,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/client/auth/")
+@CrossOrigin(origins = "*")
 public class OtpWithJwtController {
     @Autowired
     private AuthenticationManager authenticationManager;

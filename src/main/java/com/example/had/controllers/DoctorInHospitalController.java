@@ -58,7 +58,7 @@ public class DoctorInHospitalController {
     public void deleteDoctor(@PathVariable("doctorInHospId") Integer doctorInHospId) {
         this.doctorInHospitalService.deleteDoctor(doctorInHospId);
     }
-
+    @PreAuthorize("hasAnyAuthority('supervisor')")
     @GetMapping("/getAllDocInHosp/{hospitalId}")
     public List<DoctorInHospitalDto> getAllDoctorsOfHospital(@PathVariable("hospitalId") Integer hospitalId){
         return this.doctorInHospitalService.getAllDoctorsOfHospital(hospitalId);

@@ -30,6 +30,7 @@ public class FollowUpController {
     }
 
     // GET ALL FOLLOWUPS ASSIGNED TO THE FIELD WORKER WITH ID - fwInHospId
+    @PreAuthorize("hasAnyAuthority('fieldWorker')")
     @GetMapping("/{fwInHospId}")
     public ResponseEntity<List<FollowUpDto>> getAllFollowUpsOfFieldWorker(@PathVariable int fwInHospId){
         return ResponseEntity.ok(this.followUpService.followUpsOfFieldWorker(fwInHospId));
@@ -66,11 +67,11 @@ public class FollowUpController {
     }
 
     // GET REMAINING FOLLOWUPS (fwInHospId=NULL)
+    @PreAuthorize("hasAnyAuthority('supervisor')")
     @GetMapping("/remaining/{hospitalId}")
     public ResponseEntity<List<FollowUpDto>> getRemainingFollowUps(@PathVariable int hospitalId){
         return ResponseEntity.ok(this.followUpService.remainingFollowUps(hospitalId));
     }
-
 
     @PreAuthorize("hasAnyAuthority('supervisor')")
     @PutMapping("/{followUpId}")

@@ -46,7 +46,6 @@ public class SupervisorController {
         return ResponseEntity.ok(this.supervisorService.getSupervisorById(supervisorId));
     }
 
-
     @PreAuthorize("hasAnyAuthority('admin')")
     @GetMapping("/")
     public ResponseEntity<List<SupervisorDto>> getAllSupervisors() {

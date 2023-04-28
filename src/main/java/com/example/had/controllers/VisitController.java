@@ -28,18 +28,20 @@ public class VisitController {
         this.visitService.createVisit(visitDto);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Visit created successfully",true), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyAuthority('doctor', 'supervisor')")
     @GetMapping("/activeVisits/hospital/{hospitalId}/docInHosp/{docInHospId}")
     public ResponseEntity<List<VisitDto>> getActiveVisits(@PathVariable int hospitalId, @PathVariable int docInHospId){
         return ResponseEntity.ok(this.visitService.activeVisits(hospitalId,docInHospId));
     }
 
+    @PreAuthorize("hasAnyAuthority('doctor')")
     @PutMapping("/{visitId}")
     public ResponseEntity<ApiResponse> deactivateVisits(@PathVariable Integer visitId) {
        this.visitService.deactivateVisits(visitId);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Visit deactivated successfully", true), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyAuthority('doctor')")
     @PutMapping("/visited/{visitId}")
     public ResponseEntity<VisitDto> updateVisit(@RequestBody VisitDto visitDto, @PathVariable Integer visitId) {
         VisitDto updatedVisit = this.visitService.updateVisit(visitDto, visitId);
@@ -47,6 +49,7 @@ public class VisitController {
     }
 
     // GET OLD VISITS OF A PATIENT
+    @PreAuthorize("hasAnyAuthority('doctor')")
     @GetMapping("/{visitId}/patient/{patientId}")
     public ResponseEntity<List<VisitDto>> getOldFollowUps(@PathVariable int visitId, @PathVariable int patientId){
         return ResponseEntity.ok(this.visitService.oldVisits(visitId,patientId));

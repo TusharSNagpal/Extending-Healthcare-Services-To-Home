@@ -24,10 +24,10 @@ public class PhoneNumberVerificationController {
     @GetMapping(value = "/generateOTP/{phoneNo}")
     public ResponseEntity<String> generateOTP(@PathVariable String phoneNo){
 
-        Twilio.init("AC6cab6beb85193a397979b614b2824ddb", "a6cac67315b0e621760d70df5d193a7e");
+        Twilio.init("AC8a446114f4673e85a4d0969bef749872", "26fec6cfd6dafcc9c1ba6cf218a32631");
 
         Verification verification = Verification.creator(
-                        "VAce50c9a76e09d71859b78544bb1fcc4f", // this is your verification sid
+                        "VA696562bebc0da1ef0eaa346dcd661c43", // this is your verification sid
                         phoneNo, //this is your Twilio verified recipient phone number
                         "sms") // this is your channel type
                 .create();
@@ -41,11 +41,11 @@ public class PhoneNumberVerificationController {
 
     @GetMapping("/verifyOTP/{otp}/{phoneNo}")
     public ResponseEntity<?> verifyUserOTP(@PathVariable String otp, @PathVariable String phoneNo) throws Exception {
-        Twilio.init("AC6cab6beb85193a397979b614b2824ddb", "a6cac67315b0e621760d70df5d193a7e");
+        Twilio.init("AC8a446114f4673e85a4d0969bef749872", "26fec6cfd6dafcc9c1ba6cf218a32631");
         try {
 
             VerificationCheck verificationCheck = VerificationCheck.creator(
-                            "VAce50c9a76e09d71859b78544bb1fcc4f")
+                            "VA696562bebc0da1ef0eaa346dcd661c43")
                     .setTo(phoneNo)
                     .setCode(otp)
                     .create();

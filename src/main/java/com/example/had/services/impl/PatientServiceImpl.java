@@ -14,6 +14,7 @@ import com.example.had.repositories.SupervisorRepo;
 import com.example.had.services.PatientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -33,11 +34,17 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private ModelMapper modelMapper;
 
+//    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+
     @Override
     public PatientDto createPatient(PatientDto patientDto) {
         Patient patient = this.modelMapper.map(patientDto, Patient.class);
         int hospitalId = patient.getHospital().getHospitalId();
         int supervisorId = patient.getSupervisor().getSupervisorId();
+
+//        String phNo = patient.getPhoneNo();
+//        String encryptPhNo = encoder.encode(phNo);
+//        patient.setPhoneNo(encryptPhNo);
 
         //find hospital by hospitalId: using repo
 

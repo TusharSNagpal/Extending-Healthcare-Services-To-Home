@@ -28,6 +28,7 @@ public class FieldWorkerInHospitalController {
         return ResponseEntity.ok(updatedFieldWorkerInHospital );
     }
 
+    @PreAuthorize("hasAnyAuthority('fieldWorker')")
     @GetMapping("/{fwInHospId}")
     public ResponseEntity<FieldWorkerInHospitalDto>getFieldWorkerInHospitalById(@PathVariable Integer fwInHospId) {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.geFieldWorkerInHospitalById(fwInHospId));
@@ -41,11 +42,11 @@ public class FieldWorkerInHospitalController {
         return new ResponseEntity<ApiResponse>(new ApiResponse("Field Worker registered successfully",true), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyAuthority('supervisor')")
     @GetMapping("/hospital/{hospitalId}")
     public ResponseEntity<List<FieldWorkerInHospitalDto>> getFieldWorker(@PathVariable Integer hospitalId) {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.getFieldWorker(hospitalId));
     }
-
 
 
     @PreAuthorize("hasAnyAuthority('supervisor')")
@@ -54,10 +55,8 @@ public class FieldWorkerInHospitalController {
         this.fieldWorkerInHospitalService.deleteFieldWorker(fwId);
     }
 
-
     @GetMapping("/phoneNo/{fwInHospId}")
     public ResponseEntity<String> getPhoneNo(@PathVariable Integer fwInHospId) {
         return ResponseEntity.ok(this.fieldWorkerInHospitalService.getPhoneNo(fwInHospId));
-
     }
 }

@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -39,7 +40,6 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Autowired
     private ActorsRepo actorsRepo;
-
 
     @Override
     public SupervisorDto createSupervisor(SupervisorDto supervisorDto) {

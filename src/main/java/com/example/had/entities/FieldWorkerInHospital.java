@@ -37,9 +37,4 @@ public class FieldWorkerInHospital {
 
     @Column
     private String registrationDate;
-
-    @OneToMany
-    @JoinColumn(name="followUpsId")
-    private List<FollowUp> followUpList;
-
 }

@@ -55,9 +55,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 //            else if(this.tokenRole.equals("Admin")) this.tokenRole = "admin";
         }
 
-
-
-
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             UserInfo userInfo = new UserInfo(username, actorsRepo.findActorsByPhoneNo(username).getRole());
