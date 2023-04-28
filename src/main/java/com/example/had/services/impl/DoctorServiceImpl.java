@@ -47,6 +47,7 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor = this.doctorRepo.findById(doctorId).orElseThrow(() -> {
             return new ResourceNotFoundException("Doctor", "doctorId", doctorId);
         });
+        this.actorsRepo.deleteById(doctor.getPhoneNo());
         doctor.setFname(doctorDto.getFname());
         doctor.setLname(doctorDto.getLname());
         doctor.setGender(doctorDto.getGender());
@@ -55,6 +56,8 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setPhoneNo(doctorDto.getPhoneNo());
         doctor.setRegistrationDate(doctorDto.getRegistrationDate());
         Doctor updatedDoctor = this.doctorRepo.save(doctor);
+        Actors actor = new Actors(doctor.getPhoneNo(), "doctor");
+        this.actorsRepo.save(actor);
         return this.modelMapper.map(updatedDoctor, DoctorDto.class);
     }
 

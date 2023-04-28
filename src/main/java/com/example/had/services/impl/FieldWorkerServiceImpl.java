@@ -49,6 +49,7 @@ public class FieldWorkerServiceImpl implements FieldWorkerService {
         FieldWorker fieldWorker = this.fieldWorkerRepo.findById(fwId).orElseThrow(() -> {
             return new ResourceNotFoundException("FieldWorker", "fieldWorkerId", fwId);
         });
+        this.actorsRepo.deleteById(fieldWorker.getPhoneNo());
         fieldWorker.setFname(fieldWorkerDto.getFname());
         fieldWorker.setLname(fieldWorkerDto.getLname());
         fieldWorker.setGender(fieldWorkerDto.getGender());
@@ -57,6 +58,8 @@ public class FieldWorkerServiceImpl implements FieldWorkerService {
         fieldWorker.setAddress(fieldWorkerDto.getAddress());
         fieldWorker.setRegistrationDate(fieldWorkerDto.getRegistrationDate());
         FieldWorker updatedFieldWorker = this.fieldWorkerRepo.save(fieldWorker);
+        Actors actor = new Actors(fieldWorker.getPhoneNo(), "fieldWorker");
+        this.actorsRepo.save(actor);
         return this.modelMapper.map(updatedFieldWorker, FieldWorkerDto.class);
     }
 

@@ -63,6 +63,7 @@ public class SupervisorServiceImpl implements SupervisorService {
         Supervisor supervisor = this.supervisorRepo.findById(supervisorId).orElseThrow(() -> {
             return new ResourceNotFoundException("Supervisor", "supervisorId", supervisorId);
         });
+        this.actorsRepo.deleteById(supervisor.getPhoneNo());
         supervisor.setFname(supervisorDto.getFname());
         supervisor.setLname(supervisorDto.getLname());
         supervisor.setGender(supervisorDto.getGender());
@@ -74,6 +75,8 @@ public class SupervisorServiceImpl implements SupervisorService {
         supervisor.setHospital(hospital);
         supervisor.setRegistrationDate(supervisorDto.getRegistrationDate());
         Supervisor updatedSupervisor = this.supervisorRepo.save(supervisor);
+        Actors actor = new Actors(supervisor.getPhoneNo(), "supervisor");
+        this.actorsRepo.save(actor);
         return this.modelMapper.map(updatedSupervisor, SupervisorDto.class);
     }
 
