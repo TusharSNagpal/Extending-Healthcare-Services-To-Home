@@ -34,6 +34,7 @@ public class WebSecurityConfig{
                         .anyRequest().authenticated())
                 .httpBasic();
         http.headers().frameOptions().disable();
+        http.addFilterBefore(new CorsFilterConfig(), ChannelProcessingFilter.class);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
