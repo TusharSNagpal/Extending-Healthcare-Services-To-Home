@@ -84,6 +84,7 @@ public class VisitServiceImpl implements VisitService {
 //        DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(()->new ResourceNotFoundException("DoctorInHospital", "DocInHosp Id", docInHospId));
         visit.setPrescription(visitDto.getPrescription());
         visit.setSymptoms(visitDto.getSymptoms());
+        visit.setIsActive(0);
 //        visit.setDoctorInHospital(doctorInHospital);
         Visit updatedVisit = visitRepo.save(visit);
         return this.modelMapper.map(updatedVisit, VisitDto.class);

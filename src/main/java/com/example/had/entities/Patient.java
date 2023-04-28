@@ -51,4 +51,5 @@ public class Patient {
     @ManyToOne
     @JoinColumn(name="supervisorId")
     private Supervisor supervisor;
+
 }
