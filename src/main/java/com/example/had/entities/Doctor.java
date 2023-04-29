@@ -1,5 +1,6 @@
 package com.example.had.entities;
 
+import com.example.had.AES.AesEncryptor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,10 @@ public class Doctor {
     private String lname;
     private String gender;
     private String dob;
+
+    @Convert(converter= AesEncryptor.class)
     private String phoneNo;
+
     private String address;
     private String registrationDate;
 }

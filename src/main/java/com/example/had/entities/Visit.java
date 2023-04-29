@@ -1,5 +1,7 @@
 package com.example.had.entities;
 
+import com.example.had.AES.AesEncryptor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,12 +23,14 @@ public class Visit {
     private int isActive;
 
     @Column
+    @Convert(converter= AesEncryptor.class)
     private String prescription;
 
     @Column
     private String visitDate;
 
     @Column
+    @Convert(converter= AesEncryptor.class)
     private String symptoms;
 
 
@@ -35,7 +39,7 @@ public class Visit {
     private Hospital hospital;
 
     @ManyToOne
-    @JoinColumn(name="patientId")
+    @JoinColumn(name="patientId", nullable = false)
     private Patient patient;
 
     @ManyToOne

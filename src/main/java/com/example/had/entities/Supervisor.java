@@ -1,5 +1,6 @@
 package com.example.had.entities;
 
+import com.example.had.AES.AesEncryptor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,10 +24,17 @@ public class Supervisor {
 
     private String fname;
     private String lname;
+
+    @Convert(converter= AesEncryptor.class)
     private String gender;
     private String dob;
+
+    @Convert(converter= AesEncryptor.class)
     private String phoneNo;
+
+    @Convert(converter= AesEncryptor.class)
     private String address;
+
     private String registrationDate;
 
     @OneToOne(cascade = CascadeType.DETACH)

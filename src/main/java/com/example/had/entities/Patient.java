@@ -1,5 +1,7 @@
 package com.example.had.entities;
 
+import com.example.had.AES.AesEncryptor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,15 +30,16 @@ public class Patient {
     private String lname;
 
     @Column
+    @Convert(converter= AesEncryptor.class)
     private String address;
 
-    @Column
-    private Integer pinCode;
 
     @Column
+    @Convert(converter= AesEncryptor.class)
     private String gender;
 
     @Column
+    @Convert(converter= AesEncryptor.class)
     private String phoneNo;
 
     @Column
@@ -51,5 +55,6 @@ public class Patient {
     @ManyToOne
     @JoinColumn(name="supervisorId")
     private Supervisor supervisor;
+
 
 }

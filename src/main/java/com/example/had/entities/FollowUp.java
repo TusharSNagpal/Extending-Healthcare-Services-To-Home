@@ -1,5 +1,6 @@
 package com.example.had.entities;
 
+import com.example.had.AES.AesEncryptor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,12 +28,15 @@ public class FollowUp {
     private Integer isActive;
 
     @Column
+    @Convert(converter= AesEncryptor.class)
     private String taskAssignedByDoctor;
 
     @Column
+    @Convert(converter= AesEncryptor.class)
     private String reviewByFieldWorker;
 
     @Column
+    @Convert(converter= AesEncryptor.class)
     private String verificationNumber;
 
     @ManyToOne

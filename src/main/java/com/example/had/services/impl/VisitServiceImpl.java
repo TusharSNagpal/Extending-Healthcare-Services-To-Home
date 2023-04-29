@@ -9,6 +9,7 @@ import com.example.had.repositories.*;
 import com.example.had.services.VisitService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -45,6 +46,8 @@ public class VisitServiceImpl implements VisitService {
         DoctorInHospital doctorInHospital = this.doctorInHospitalRepo.findById(docInHospId).orElseThrow(()->new ResourceNotFoundException("DoctorInHospital", "DocInHosp Id", docInHospId));
         visit.setIsActive(1);
         visit.setHospital(hospital);
+
+//        updatePatient.setPatientId();
         visit.setPatient(patient);
         visit.setDoctorInHospital(doctorInHospital);
         Date date = new Date();

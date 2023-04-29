@@ -1,5 +1,6 @@
 package com.example.had.entities;
 
+import com.example.had.AES.AesEncryptor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
