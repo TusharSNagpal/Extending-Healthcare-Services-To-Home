@@ -53,6 +53,8 @@ public class VisitServiceImpl implements VisitService {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         visit.setVisitDate(formatter.format(date));
+        visit.setSymptoms("none");
+        visit.setPrescription("none");
         Visit addedVisit = this.visitRepo.save(visit);
     }
 
