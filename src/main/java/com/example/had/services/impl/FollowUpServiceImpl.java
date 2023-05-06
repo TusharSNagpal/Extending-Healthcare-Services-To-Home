@@ -58,7 +58,7 @@ public class FollowUpServiceImpl implements FollowUpService {
 
         followUpDto.setVisit(visit);
         followUpDto.setReviewByFieldWorker("none");
-        if(followUpDto.getVerificationNumber().isEmpty())
+        if(followUpDto.getVerificationNumber()==null || followUpDto.getVerificationNumber().length()==0)
             followUpDto.setVerificationNumber("none");
         FollowUp followUp = this.modelMapper.map(followUpDto, FollowUp.class);
         FollowUp savedFollowUp = this.followUpRepo.save(followUp);
