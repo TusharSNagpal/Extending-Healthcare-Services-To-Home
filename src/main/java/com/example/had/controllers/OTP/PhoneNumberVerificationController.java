@@ -41,11 +41,11 @@ public class PhoneNumberVerificationController {
 
     @GetMapping("/verifyOTP/{otp}/{phoneNo}")
     public ResponseEntity<?> verifyUserOTP(@PathVariable String otp, @PathVariable String phoneNo) throws Exception {
-        Twilio.init("AC8a446114f4673e85a4d0969bef749872", "26fec6cfd6dafcc9c1ba6cf218a32631");
+        Twilio.init("ACcd5b5a06af1c50fcaa83b8e8446141bb", "58b7deb19ab66534cbb2fda9a152999c");
         try {
 
             VerificationCheck verificationCheck = VerificationCheck.creator(
-                            "VA696562bebc0da1ef0eaa346dcd661c43")
+                            "VA2a8bd5e2cc3bfcea6615dbabc4bd5cc1")
                     .setTo(phoneNo)
                     .setCode(otp)
                     .create();
