@@ -30,12 +30,12 @@ public class OtpService {
     }
 
     public String generateOtp(String phoneNo){
-        Twilio.init("AC8a446114f4673e85a4d0969bef749872", "26fec6cfd6dafcc9c1ba6cf218a32631");
+        Twilio.init("ACcd5b5a06af1c50fcaa83b8e8446141bb", "58b7deb19ab66534cbb2fda9a152999c");
 //        PhoneNumber to = new PhoneNumber(phoneNo);
 //        PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber());
         String otp = getRandomOTP(phoneNo);
         String otpMessage = "Dear Customer , Your OTP is " + otp + ".";
-        Message message = Message.creator(new PhoneNumber(phoneNo), new PhoneNumber("+14345954775"),
+        Message message = Message.creator(new PhoneNumber(phoneNo), new PhoneNumber("+12545664570"),
                 otpMessage).create();
         return  otp;
     }
