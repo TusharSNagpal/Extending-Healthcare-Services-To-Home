@@ -30,7 +30,7 @@ public class OtpService {
     }
 
     public String generateOtp(String phoneNo){
-        Twilio.init("ACcd5b5a06af1c50fcaa83b8e8446141bb", "58b7deb19ab66534cbb2fda9a152999c");
+        Twilio.init("ACcd5b5a06af1c50fcaa83b8e8446141bb", "5ebcb1be3fc78591c528d23b3ff2362e");
 //        PhoneNumber to = new PhoneNumber(phoneNo);
 //        PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber());
         String otp = getRandomOTP(phoneNo);
